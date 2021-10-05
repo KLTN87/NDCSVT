@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace NDCSVT
+namespace Grabcut
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace NDCSVT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLayDacTrung());
+            Application.Run(new Form2());
         }
     }
 }

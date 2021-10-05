@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NDCSVT")]
+[assembly: AssemblyTitle("Grabcut")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NDCSVT")]
+[assembly: AssemblyProduct("Grabcut")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("16a8b2a4-7006-46b7-a322-9dcb513e3fa7")]
+[assembly: Guid("4d620023-05ac-4a6f-bc0d-02a92136f967")]
 
 // Version information for an assembly consists of the following four values:
 //
