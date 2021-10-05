@@ -352,7 +352,10 @@ namespace Grabcut
 
                 var imgGrabCut = GrabcutImg(tempImg);
 
-                var imgHOG = getHOGFeature(imgGrabCut,HOGvalue);
+                var featureHOG = getHOGFeature(imgGrabCut,HOGvalue);
+
+                var imgHOG = normalizeFloatArray(featureHOG);
+
 
                 string textHOG = string.Join(" ", imgHOG);
 
@@ -397,6 +400,31 @@ namespace Grabcut
                 }
             }
         }
+
+        private float normalizeFloat(float value, float min, float max)
+        {
+            float temp = (value - min) / (max - min);
+            return temp;
+        }
+
+        private float[] normalizeFloatArray(float[] arr)
+        {
+            float[] terms = new float[arr.Length];
+            for (int runs = 0; runs < arr.Length; runs++)
+            {
+
+                terms[runs] = normalizeFloat( arr[runs], arr.Min(), arr.Max() );
+            }
+
+            return terms;
+        }
+
+
     }
+
+
+
+
+
 
 }
