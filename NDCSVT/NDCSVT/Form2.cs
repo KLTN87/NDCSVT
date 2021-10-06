@@ -259,7 +259,7 @@ namespace Grabcut
                 Matrix<double> fg = new Matrix<double>(1, 65);
                 fg.SetZero();
                 Image<Gray, byte> mask = new Image<Gray, byte>(img.Size);
-                Rectangle rect = new Rectangle(img.Cols / 20, 1, (int)((double)img.Width / (0.75)), img.Height);
+                Rectangle rect = new Rectangle(img.Cols / 10, 2, (int)((double)img.Width / (0.75)), img.Height);
                 CvInvoke.GrabCut(img, mask, rect,
                    bg, fg, 5, Emgu.CV.CvEnum.GrabcutInitType.InitWithRect);
                 Image<Gray, byte> mask2 = new Image<Gray, byte>(img.Size);
