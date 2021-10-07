@@ -43,7 +43,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.imageBox1 = new Emgu.CV.UI.ImageBox();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageBox1)).BeginInit();
             this.SuspendLayout();
@@ -70,15 +69,14 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolToolStripMenuItem
             // 
             this.toolToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hOGToolStripMenuItem,
-            this.testToolStripMenuItem});
+            this.hOGToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
             this.toolToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.toolToolStripMenuItem.Text = "Tool";
@@ -108,30 +106,35 @@
             this.hOG144FeatureValuesToolStripMenuItem.Name = "hOG144FeatureValuesToolStripMenuItem";
             this.hOG144FeatureValuesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.hOG144FeatureValuesToolStripMenuItem.Text = "HOG 144 feature values";
+            this.hOG144FeatureValuesToolStripMenuItem.Click += new System.EventHandler(this.hOG144FeatureValuesToolStripMenuItem_Click);
             // 
             // hOG576FeatureValuesToolStripMenuItem
             // 
             this.hOG576FeatureValuesToolStripMenuItem.Name = "hOG576FeatureValuesToolStripMenuItem";
             this.hOG576FeatureValuesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.hOG576FeatureValuesToolStripMenuItem.Text = "HOG 576 feature values";
+            this.hOG576FeatureValuesToolStripMenuItem.Click += new System.EventHandler(this.hOG576FeatureValuesToolStripMenuItem_Click);
             // 
             // hOG2304FeatureValuesToolStripMenuItem
             // 
             this.hOG2304FeatureValuesToolStripMenuItem.Name = "hOG2304FeatureValuesToolStripMenuItem";
             this.hOG2304FeatureValuesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.hOG2304FeatureValuesToolStripMenuItem.Text = "HOG 2304 feature values";
+            this.hOG2304FeatureValuesToolStripMenuItem.Click += new System.EventHandler(this.hOG2304FeatureValuesToolStripMenuItem_Click);
             // 
             // hOG5832FeatureValuesToolStripMenuItem1
             // 
             this.hOG5832FeatureValuesToolStripMenuItem1.Name = "hOG5832FeatureValuesToolStripMenuItem1";
             this.hOG5832FeatureValuesToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
             this.hOG5832FeatureValuesToolStripMenuItem1.Text = "HOG 5832 feature values";
+            this.hOG5832FeatureValuesToolStripMenuItem1.Click += new System.EventHandler(this.hOG5832FeatureValuesToolStripMenuItem1_Click);
             // 
             // hOG9216FeatureValuesToolStripMenuItem
             // 
             this.hOG9216FeatureValuesToolStripMenuItem.Name = "hOG9216FeatureValuesToolStripMenuItem";
             this.hOG9216FeatureValuesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.hOG9216FeatureValuesToolStripMenuItem.Text = "HOG 11664 feature values";
+            this.hOG9216FeatureValuesToolStripMenuItem.Click += new System.EventHandler(this.hOG9216FeatureValuesToolStripMenuItem_Click);
             // 
             // button2
             // 
@@ -157,13 +160,6 @@
             this.imageBox1.Size = new System.Drawing.Size(567, 245);
             this.imageBox1.TabIndex = 8;
             this.imageBox1.TabStop = false;
-            // 
-            // testToolStripMenuItem
-            // 
-            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.testToolStripMenuItem.Text = "Test";
-            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // HOG
             // 
@@ -200,6 +196,5 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private Emgu.CV.UI.ImageBox imageBox1;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }

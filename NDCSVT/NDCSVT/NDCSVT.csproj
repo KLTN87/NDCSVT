@@ -65,6 +65,7 @@
     <Compile Include="HOG.Designer.cs">
       <DependentUpon>HOG.cs</DependentUpon>
     </Compile>
+    <Compile Include="keypoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form2.resx">

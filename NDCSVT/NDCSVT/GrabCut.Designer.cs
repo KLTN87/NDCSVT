@@ -37,7 +37,6 @@ namespace Grabcut
             this.grayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findContoursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabCutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hOGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brightnessAndToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -101,10 +100,9 @@ namespace Grabcut
             this.grayToolStripMenuItem,
             this.findContoursToolStripMenuItem,
             this.grabCutToolStripMenuItem,
-            this.hOGToolStripMenuItem,
             this.brightnessAndToolStripMenuItem});
             this.toolToolStripMenuItem.Name = "toolToolStripMenuItem";
-            this.toolToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.toolToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.toolToolStripMenuItem.Text = "Tool";
             // 
             // grayToolStripMenuItem
@@ -127,13 +125,6 @@ namespace Grabcut
             this.grabCutToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.grabCutToolStripMenuItem.Text = "GrabCut";
             this.grabCutToolStripMenuItem.Click += new System.EventHandler(this.grabCutToolStripMenuItem_Click);
-            // 
-            // hOGToolStripMenuItem
-            // 
-            this.hOGToolStripMenuItem.Name = "hOGToolStripMenuItem";
-            this.hOGToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.hOGToolStripMenuItem.Text = "HOG";
-            this.hOGToolStripMenuItem.Click += new System.EventHandler(this.hOGToolStripMenuItem_Click);
             // 
             // brightnessAndToolStripMenuItem
             // 
@@ -260,7 +251,7 @@ namespace Grabcut
             this.listBox1.Size = new System.Drawing.Size(266, 160);
             this.listBox1.TabIndex = 18;
             // 
-            // Form1
+            // GrabCut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -281,7 +272,7 @@ namespace Grabcut
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "GrabCut";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -303,7 +294,6 @@ namespace Grabcut
         private System.Windows.Forms.ToolStripMenuItem grayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findContoursToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grabCutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hOGToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.ToolStripMenuItem brightnessAndToolStripMenuItem;
         private System.Windows.Forms.TrackBar trackBar1;

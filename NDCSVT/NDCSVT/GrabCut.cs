@@ -202,33 +202,6 @@ namespace Grabcut
             pictureBox2.Image = imgOut.ToBitmap();
         }
 
-        private void hOGToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var img = new Bitmap(pictureBox1.Image).ToImage<Bgr, byte>();
-            GetVector(img);
-        }
-        public Image<Bgr, Byte> Resize(Image<Bgr, Byte> im)
-        {
-            return im.Resize(64, 128, Emgu.CV.CvEnum.Inter.Linear);
-            //return im.Resize(64, 128, Emgu.CV.CvEnum.INTER.CV_INTER_LINEAR);
-        }
-        public float[] GetVector(Image<Bgr, Byte> im)
-        {
-            HOGDescriptor hog = new HOGDescriptor();    // with defaults values
-            Image<Bgr, Byte> imageOfInterest = Resize(im);
-            System.Drawing.Point[] p = new System.Drawing.Point[imageOfInterest.Width * imageOfInterest.Height];
-            int k = 0;
-            for (int i = 0; i < imageOfInterest.Width; i++)
-            {
-                for (int j = 0; j < imageOfInterest.Height; j++)
-                {
-                    System.Drawing.Point p1 = new System.Drawing.Point(i, j);
-                    p[k++] = p1;
-                }
-            }
-            float[] result = hog.Compute(imageOfInterest, new System.Drawing.Size(16, 16), new System.Drawing.Size(0, 0),null);
-            return result;
-        }
 
         private void brightnessAndToolStripMenuItem_Click(object sender, EventArgs e)
         {

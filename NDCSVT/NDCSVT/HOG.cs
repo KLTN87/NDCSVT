@@ -153,5 +153,30 @@ namespace Grabcut
             //    plt.axvline(change + 1)
             //plt.show()
         }
+
+        private void hOG144FeatureValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHOGFeature(imgInput, 144);
+        }
+
+        private void hOG576FeatureValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHOGFeature(imgInput, 576);
+        }
+
+        private void hOG2304FeatureValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHOGFeature(imgInput, 2304);
+        }
+
+        private void hOG5832FeatureValuesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            showHOGFeature(imgInput, 5832);
+        }
+
+        private void hOG9216FeatureValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showHOGFeature(imgInput, 11664);
+        }
     }
 }
