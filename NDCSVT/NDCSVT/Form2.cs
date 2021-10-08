@@ -307,7 +307,12 @@ namespace Grabcut
                 MessageBox.Show("Lỗi!, vui lòng nhập file hình ảnh");
 
             }
+            if (inputFiles.Length == null)
+            {
 
+                MessageBox.Show("Lỗi!, vui lòng nhập file hình ảnh");
+
+            }
             else
             {
 
