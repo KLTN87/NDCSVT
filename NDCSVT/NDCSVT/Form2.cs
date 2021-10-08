@@ -712,7 +712,7 @@ namespace Grabcut
         }
         private double[] getSIFTMpeg7(Image<Bgr, Byte> im)
         {
-            Bitmap a = convertMpeg7(IResize(im, 512, 512).ToBitmap());
+            Bitmap a = convertMpeg7(im.ToBitmap());
 
             Mat src1 = a.ToMat();
 
