@@ -352,11 +352,11 @@ namespace Grabcut
 
                 int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
 
-                if (tempimgwsize < 32) // khi ảnh quá nhỏ
-                {
-                    tempimg = IResize(tempimg, 32, 32);
-                }
-
+                //if (tempimgwsize < 32) // khi ảnh quá nhỏ
+                //{
+                //    tempimg = IResize(tempimg, 32, 32);
+                //}
+                tempimg = IResize(tempimg, 128, 128);
 
                 var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
@@ -366,7 +366,9 @@ namespace Grabcut
                 var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
 
 
-                string textDT = string.Join(" ", chuanhoadactrung);
+                //string textDT = string.Join(" ", chuanhoadactrung);
+
+                string textDT = string.Join(" ", featureSIFT);// test sift
 
                 vectorList.Add(textDT);
 
@@ -487,8 +489,13 @@ namespace Grabcut
                     }
                 }
                 img = img.Mul(mask.Convert<Bgr, byte>());
-                //CvInvoke.Imshow("image", img);
-                //CvInvoke.WaitKey(0);
+
+
+                //hiện ảnh sau khi grabcut
+                CvInvoke.Imshow("image", img);
+                CvInvoke.WaitKey(0);
+
+
                 return img;
             }
 
@@ -501,32 +508,13 @@ namespace Grabcut
         }
 
 
-        //private Image<Bgr, Byte> GrabcutImg2(Image<Bgr, Byte> image)
-        //{
-
-        //    Mat result; // segmentation result (4 possible values)
-        //    Mat bgModel, fgModel; // the models (internally used)
-        //    Mat downsampled;
-        //    PyrDown(image, downsampled, Size(image.cols / 2, image.rows / 2));
-
-        //    Rect rectangle(BORDER, BORDER, downsampled.cols-BORDER2,downsampled.rows - BORDER2);
-
-
-        //        grabCut(downsampled,    // input image
-        //            result,   // segmentation result
-        //            rectangle,// rectangle containing foreground
-        //            bgModel, fgModel, // models
-        //            1,        // number of iterations
-        //            GC_INIT_WITH_RECT); // use rectangle
-
-
-        //    }
 
 
 
 
-            //hàmm của HOG
-            private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
+
+        //hàmm của HOG
+        private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
         {
             return im.Resize(w, h, Emgu.CV.CvEnum.Inter.Linear);
         }
@@ -697,10 +685,15 @@ namespace Grabcut
 
             double[] tempArr = c.Take(6).ToArray();
 
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //pictureBox2.Image = sift_feature.ToBitmap();
+            CvInvoke.Imshow("image", sift_feature);
+            CvInvoke.WaitKey(0);
+
+
             return tempArr;
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
+
         }
         private double[] getSIFTMpeg7(Image<Bgr, Byte> im)
         {
@@ -764,10 +757,16 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             double[] tempArr = c.Take(25).ToArray();
 
-            return tempArr;
-
             //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //pictureBox2.Image = sift_feature.ToBitmap();
+            //CvInvoke.Imshow("image", sift_feature);
+            //CvInvoke.WaitKey(0);
+
+
+            return tempArr;
+
+
+
         }
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
