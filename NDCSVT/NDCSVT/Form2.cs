@@ -650,7 +650,7 @@ namespace Grabcut
         }
         private double[] getSIFTNewton(Image<Bgr, Byte> im)
         {
-            Bitmap a = (im.ToBitmap());
+            Bitmap a = convertNewton(IResize(im, 512, 512).ToBitmap());
 
             Mat src1 = a.ToMat();
 
@@ -704,7 +704,7 @@ namespace Grabcut
         }
         private double[] getSIFTMpeg7(Image<Bgr, Byte> im)
         {
-            Bitmap a = (im.ToBitmap());
+            Bitmap a = convertMpeg7(IResize(im, 512, 512).ToBitmap());
 
             Mat src1 = a.ToMat();
 
@@ -1169,7 +1169,104 @@ namespace Grabcut
             }
             return histogram;
         }
+        public Color getNewtonColor(Color c)
+        {
+            int idx = 0;
+            //int[] Red = {255, 0, 0};
+            //int[] Yellow = {255, 255, 0};
+            //int[] Blue = { 0, 0, 255 };
+            //int[] Green = { 0, 128, 0 };
+            //int[] Orange = {255, 165, 0 };
+            //int[] Purple = { 128, 0, 128 };
+            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 128, 0 }, { 255, 165, 0 }, { 128, 0, 128 } };
+            double disMin = Math.Sqrt((c.R - 255) * (c.R - 255) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
+            for (int i = 1; i < 6; i++)
+            {
+                double dis = Math.Sqrt((c.R - color[i, 0]) * (c.R - color[i, 0]) + (c.G - color[i, 1]) * (c.G - color[i, 1]) + (c.B - color[i, 2]) * (c.B - color[i, 2]));
+                if (disMin > dis)
+                {
+                    disMin = dis;
+                    idx = i;
+                }
+            }
+            Color newColor = Color.FromArgb(255, color[idx, 0], color[idx, 1], color[idx, 2]);
+            return newColor;
+        }
+        public Color getMPEG7Color(Color c)
+        {
+            int idx = 0;
+            //int[] Black = { 0, 0, 0 };
+            //int[] SeaGreen = { 0, 182, 0};
+            //int[] LightGreen = { 0, 255, 170 };
+            //int[] OliveGreen = { 36, 73, 0 };
+            //int[] Aqua = { 36, 16, 170 };
+            //int[] BrightGreen = { 36, 255, 0 };
+            //int[] Blue = { 73, 36, 170 };
+            //int[] Green = { 73, 146, 0};
+            //int[] Turquoise = { 73, 219, 170 };
+            //int[] Brown = { 109, 36, 0 };
+            //int[] BlueGray = { 109, 109, 170 };
+            //int[] Lime = { 109, 219, 0 };
+            //int[] Lavenda = { 146, 0, 170 };
+            //int[] Plum = { 146, 109, 0 };
+            //int[] Teal = { 146, 182, 170 };
+            //int[] DarkRed = { 182, 0, 0 };
+            //int[] Magenta = { 182, 73, 170 };
+            //int[] YellowGreen = { 182, 182, 0 };
+            //int[] FlouroGreen = { 182, 255, 170 };
+            //int[] Red = { 219, 73, 0 };
+            //int[] Rose = { 219, 146, 170 };
+            //int[] Yellow = { 219, 255, 0 };
+            //int[] Pink = { 255, 36, 170 };
+            //int[] Orange = { 255, 146, 0 };
+            //int[] White = { 255, 255, 255 };
 
+            int[,] color = {    { 0, 0, 0 }, { 0, 182, 0 }, { 0, 255, 170 }, { 36, 73, 0 },
+                                { 36, 16, 170 }, { 36, 255, 0 }, { 73, 36, 170 }, { 73, 146, 0 },
+                                { 73, 219, 170 }, { 109, 36, 0 }, { 109, 109, 170 }, { 109, 219, 0 },
+                                { 146, 0, 170 }, { 146, 109, 0 }, { 146, 182, 170 }, { 182, 0, 0 },
+                                { 182, 73, 170 }, { 182, 182, 0 }, { 182, 255, 170 }, { 219, 73, 0 },
+                                { 219, 146, 170 }, { 219, 255, 0 }, { 255, 36, 170 }, { 255, 146, 0 }, { 255, 255, 255 } };
+            double disMin = Math.Sqrt((c.R - 0) * (c.R - 0) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
+            for (int i = 1; i < 25; i++)
+            {
+                double dis = Math.Sqrt((c.R - color[i, 0]) * (c.R - color[i, 0]) + (c.G - color[i, 1]) * (c.G - color[i, 1]) + (c.B - color[i, 2]) * (c.B - color[i, 2]));
+                if (disMin > dis)
+                {
+                    disMin = dis;
+                    idx = i;
+                }
+            }
+
+            Color newColor = Color.FromArgb(255, color[idx, 0], color[idx, 1], color[idx, 2]);
+            return newColor;
+        }
+        public Bitmap convertNewton(Bitmap img)
+        {
+            Bitmap gimg = new Bitmap(img.Width, img.Height);
+            for (int x = 0; x < gimg.Width; x++)
+            {
+                for (int y = 0; y < gimg.Height; y++)
+                {
+                    Color pixel = img.GetPixel(x, y);
+                    gimg.SetPixel(x, y, getNewtonColor(pixel));
+                }
+            }
+            return gimg;
+        }
+        public Bitmap convertMpeg7(Bitmap img)
+        {
+            Bitmap gimg = new Bitmap(img.Width, img.Height);
+            for (int x = 0; x < gimg.Width; x++)
+            {
+                for (int y = 0; y < gimg.Height; y++)
+                {
+                    Color pixel = img.GetPixel(x, y);
+                    gimg.SetPixel(x, y, getMPEG7Color(pixel));
+                }
+            }
+            return gimg;
+        }
 
     }
 
