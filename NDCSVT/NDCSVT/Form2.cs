@@ -671,19 +671,19 @@ namespace Grabcut
                 maxy++;
             }
 
-            string temp = " ";
+            //string temp = " ";
 
-            foreach (keypoint item in keypointsList)
-            {
+            //foreach (keypoint item in keypointsList)
+            //{
 
-                if (item == null)
-                {
-                    temp = "Khong co gia tri";
-                }
-                else
-                    temp = temp + item.X + " " + item.Y + " ";
-            }
-            MessageBox.Show(temp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    if (item == null)
+            //    {
+            //        temp = "Khong co gia tri";
+            //    }
+            //    else
+            //        temp = temp + item.X + " " + item.Y + " ";
+            //}
+            //MessageBox.Show(temp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //richTextBox1.Text = temp;
 
             double[] b = tinhHistogramNewton(a, keyPoints, maxx, maxy);
@@ -706,7 +706,7 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
 
 
-            double[] tempArr = c.Take(12).ToArray();
+            double[] tempArr = c.Take(6).ToArray();
 
             
             //hiên ảnh sift
@@ -785,12 +785,7 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             double[] tempArr = c.Take(25).ToArray();
 
-<<<<<<< HEAD
-            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
-            CvInvoke.Imshow("image", sift_feature);
-            CvInvoke.WaitKey(0);
-=======
+
             ////pictureBox2.Image = sift_feature.ToBitmap();
             //CvInvoke.Imshow("image", sift_feature);
             //CvInvoke.WaitKey(0);
@@ -798,13 +793,13 @@ namespace Grabcut
             //hiên ảnh sift
             if (showimg == true)
             {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift mpeg7", sift_feature);
 
             }
 
 
->>>>>>> 4be79f773ad233cbe2f2f02993be62dc142787b7
+
             return tempArr;
 
 
@@ -1147,7 +1142,7 @@ namespace Grabcut
 
             //int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 } };
 
-            //int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 255, 0, 255 } };
+            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 255, 0, 255 } };
 
             //int[] LightGreen = {128, 255, 0};
             //int[] GreenCyan = {0,255,128};
@@ -1156,7 +1151,7 @@ namespace Grabcut
             //int[] Magenta = {255,0,255};
             //int[] LightRed = {255,0,128};
 
-            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 }, { 128, 255, 0 }, { 0, 255, 128 }, { 0, 255, 255 }, { 0, 128, 255 }, { 255, 0, 255 }, { 255, 0, 128 } };
+            //int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 }, { 128, 255, 0 }, { 0, 255, 128 }, { 0, 255, 255 }, { 0, 128, 255 }, { 255, 0, 255 }, { 255, 0, 128 } };
             double disMin = Math.Sqrt((c.R - 255) * (c.R - 255) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
             for (int i = 1; i < 6; i++)
             {
@@ -1171,7 +1166,7 @@ namespace Grabcut
         }
         public double[] tinhHistogramNewton(Bitmap bmp, MKeyPoint[] key, double maxx, double maxy)
         {
-            double[] histogram = new double[12];
+            double[] histogram = new double[6];
             for (int i = 0; i < maxx; i++)
             {
                 for (int j = 0; j < maxy; j++)
@@ -1264,7 +1259,7 @@ namespace Grabcut
             //int[] Orange = {255, 165, 0 };
             //int[] Purple = { 128, 0, 128 };
 
-            //int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 255, 0, 255 } };
+            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 255, 0, 255 } };
 
             //int[] LightGreen = {128, 255, 0};
             //int[] GreenCyan = {0,255,128};
@@ -1273,7 +1268,7 @@ namespace Grabcut
             //int[] Magenta = {255,0,255};
             //int[] LightRed = {255,0,128};
 
-            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 }, { 128, 255, 0 }, { 0, 255, 128 }, { 0, 255, 255 }, { 0, 128, 255 }, { 255, 0, 255 }, { 255, 0, 128 } };
+            //int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 }, { 128, 255, 0 }, { 0, 255, 128 }, { 0, 255, 255 }, { 0, 128, 255 }, { 255, 0, 255 }, { 255, 0, 128 } };
 
             double disMin = Math.Sqrt((c.R - 255) * (c.R - 255) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
             for (int i = 1; i < 6; i++)
