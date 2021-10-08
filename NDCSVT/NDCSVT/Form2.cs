@@ -1107,7 +1107,7 @@ namespace Grabcut
         }
         public double[] tinhHistogramNewton(Bitmap bmp, MKeyPoint[] key, double maxx, double maxy)
         {
-            double[] histogram = new double[12];
+            double[] histogram = new double[6];
             for (int i = 0; i < maxx; i++)
             {
                 for (int j = 0; j < maxy; j++)
