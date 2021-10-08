@@ -350,9 +350,15 @@ namespace Grabcut
             {
                 Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
 
-                var tempimgresize =  IResize(tempimg, 512, 512);
+                int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
 
-                var imggrabcut = GrabcutImg(tempimgresize);
+                if (tempimgwsize < 32) // khi ảnh quá nhỏ
+                {
+                    tempimg = IResize(tempimg, 32, 32);
+                }
+
+
+                var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
                 var featureHOG = getHOGFeature(imggrabcut, HOGvalue);
 
@@ -381,12 +387,12 @@ namespace Grabcut
         private void print10FirstVector(List<String> dsVectoc, int label)
         {
             int dem = 0;
+            richTextBox1.Clear();
             foreach (String vec in vectorList)
             {
 
                 dem++;
-                //richTextBox1.Text = richTextBox1.Text + "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
-                richTextBox1.Text = "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
+                richTextBox1.Text = richTextBox1.Text + "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
 
                 if (dem >= 10)
                     break;
