@@ -27,7 +27,7 @@ namespace Grabcut
 
         string[] inputFiles;
 
-        List<Image<Bgr, byte>> imgInputList = new List<Image<Bgr, byte>>();
+        //List<Image<Bgr, byte>> imgInputList = new List<Image<Bgr, byte>>();
 
         List<String> vectorList = new List<string>();
 
@@ -84,6 +84,21 @@ namespace Grabcut
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string nolabel = comboBox_Label.SelectedValue.ToString();
+            string path = SaveFile();
+            using (TextWriter writer = File.CreateText(path))
+            {
+
+                foreach (string vt in vectorList)
+                {
+                    writer.WriteLine("<label>" + nolabel + "</label>");
+                    writer.WriteLine("<vector>" + vt + "</vector>");
+                }
+            }
+        }
+
+        private void saveFileString1()
+        {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Text File|*.txt";
             sfd.FileName = "DacTrung";
@@ -98,7 +113,9 @@ namespace Grabcut
                     bw.Close();
                 }
             }
+
         }
+
 
         private void mergeTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -309,8 +326,12 @@ namespace Grabcut
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            imgInputList.Clear();
+            //imgInputList.Clear();
+            Array.Clear(inputFiles, 0, inputFiles.Length);
+
             listBox1.Items.Clear();
+            richTextBox1.Clear();
+            vectorList.Clear();
 
         }
 
@@ -328,15 +349,15 @@ namespace Grabcut
             {
                 Image<Bgr, byte> tempImg = new Image<Bgr, byte>(filename);
 
-                //var imgGrabCut = GrabcutImg(tempImg);
-                //var featureSIFT = getSIFTFeature(imgGrabCut, SIFTchoose);
-                var featureHOG = getHOGFeature(tempImg, HOGvalue);
+                var imgGrabCut = GrabcutImg(tempImg);
+                var featureSIFT = getSIFTFeature(imgGrabCut, SIFTchoose);
+                var featureHOG = getHOGFeature(imgGrabCut, HOGvalue);
 
-                //var gopDacTrung = concatDoubleArray(featureSIFT, featureHOG);
-                //var chuanHoaDacTrung = normalizeDoubleArray(gopDacTrung);
+                var gopDacTrung = concatDoubleArray(featureSIFT, featureHOG);
+                var chuanHoaDacTrung = normalizeDoubleArray(gopDacTrung);
 
 
-                string textDT = string.Join(" ", featureHOG);
+                string textDT = string.Join(" ", chuanHoaDacTrung);
 
                 vectorList.Add(textDT);
 
@@ -375,6 +396,11 @@ namespace Grabcut
 
         private double normalizeDouble(double value, double min, double max)
         {
+            if(value ==0 && min == 0 && max == 0)
+            {
+                return 0;
+            }
+
             double temp = (value - min) / (max - min);
             return temp;
         }
@@ -404,6 +430,10 @@ namespace Grabcut
         {
             try
             {
+                //Image<Gray, byte> tempimg = new Image<Gray, byte>(img.Size);
+                //img = new Image<Bgr, Byte>(tempimg.Size);
+
+
 
                 //test//
                 Matrix<double> bg = new Matrix<double>(1, 65);
@@ -447,6 +477,8 @@ namespace Grabcut
                     }
                 }
                 img = img.Mul(mask.Convert<Bgr, byte>());
+                //CvInvoke.Imshow("image", img);
+                //CvInvoke.WaitKey(0);
                 return img;
             }
 
@@ -458,8 +490,33 @@ namespace Grabcut
 
         }
 
-        //hàmm của HOG
-        private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
+
+        //private Image<Bgr, Byte> GrabcutImg2(Image<Bgr, Byte> image)
+        //{
+
+        //    Mat result; // segmentation result (4 possible values)
+        //    Mat bgModel, fgModel; // the models (internally used)
+        //    Mat downsampled;
+        //    PyrDown(image, downsampled, Size(image.cols / 2, image.rows / 2));
+
+        //    Rect rectangle(BORDER, BORDER, downsampled.cols-BORDER2,downsampled.rows - BORDER2);
+
+
+        //        grabCut(downsampled,    // input image
+        //            result,   // segmentation result
+        //            rectangle,// rectangle containing foreground
+        //            bgModel, fgModel, // models
+        //            1,        // number of iterations
+        //            GC_INIT_WITH_RECT); // use rectangle
+
+
+        //    }
+
+
+
+
+            //hàmm của HOG
+            private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
         {
             return im.Resize(w, h, Emgu.CV.CvEnum.Inter.Linear);
         }
