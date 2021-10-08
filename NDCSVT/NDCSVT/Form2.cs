@@ -382,7 +382,8 @@ namespace Grabcut
             {
 
                 dem++;
-                richTextBox1.Text = richTextBox1.Text + "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
+                //richTextBox1.Text = richTextBox1.Text + "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
+                richTextBox1.Text = "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
 
                 if (dem >= 10)
                     break;
