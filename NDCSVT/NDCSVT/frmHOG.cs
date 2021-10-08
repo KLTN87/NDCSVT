@@ -14,9 +14,9 @@ using Emgu.CV.Util;
 
 namespace Grabcut
 {
-    public partial class HOG : Form
+    public partial class frmHOG : Form
     {
-        public HOG()
+        public frmHOG()
         {
             InitializeComponent();
         }

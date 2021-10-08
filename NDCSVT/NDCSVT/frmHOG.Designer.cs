@@ -1,6 +1,6 @@
 ﻿namespace Grabcut
 {
-    partial class HOG
+    partial class frmHOG
     {
         /// <summary>
         /// Required designer variable.

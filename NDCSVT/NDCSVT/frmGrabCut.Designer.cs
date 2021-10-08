@@ -1,7 +1,7 @@
 ﻿
 namespace Grabcut
 {
-    partial class GrabCut
+    partial class frmGrabCut
     {
         /// <summary>
         /// Required designer variable.
