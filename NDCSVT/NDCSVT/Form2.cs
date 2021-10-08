@@ -307,12 +307,6 @@ namespace Grabcut
                 MessageBox.Show("Lỗi!, vui lòng nhập file hình ảnh");
 
             }
-            if (inputFiles.Length == null)
-            {
-
-                MessageBox.Show("Lỗi!, vui lòng nhập file hình ảnh");
-
-            }
             else
             {
 
@@ -643,7 +637,7 @@ namespace Grabcut
         }
         private double[] getSIFTNewton(Image<Bgr, Byte> im)
         {
-            Bitmap a = convertNewton(im.ToBitmap());
+            Bitmap a = convertNewton(IResize(im, 512, 512).ToBitmap());
 
             Mat src1 = a.ToMat();
 
@@ -777,10 +771,10 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             double[] tempArr = c.Take(25).ToArray();
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            ////pictureBox2.Image = sift_feature.ToBitmap();
-            //CvInvoke.Imshow("image", sift_feature);
-            //CvInvoke.WaitKey(0);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //pictureBox2.Image = sift_feature.ToBitmap();
+            CvInvoke.Imshow("image", sift_feature);
+            CvInvoke.WaitKey(0);
             return tempArr;
 
 
@@ -1120,14 +1114,14 @@ namespace Grabcut
             {
                 for (int j = 0; j < maxy; j++)
                 {
-                    //if (i == j)
-                    //{
+                    if (i == j)
+                    {
                         Color color = bmp.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
 
                         byte c = (byte)getIndexNewtonColor(color);
 
                         histogram[c]++;
-                    //}
+                    }
                 }
             }
             return histogram;
