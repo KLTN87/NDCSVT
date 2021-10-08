@@ -640,8 +640,8 @@ namespace Grabcut
         }
         private double[] getSIFTNewton(Image<Bgr, Byte> im)
         {
-            //Bitmap a = (im.ToBitmap());
-            Bitmap a = IResize(im, 512, 512).ToBitmap();
+            Bitmap a = (im.ToBitmap());
+
             Mat src1 = a.ToMat();
 
             SIFT sift = new SIFT();
@@ -664,8 +664,6 @@ namespace Grabcut
                 maxx++;
                 maxy++;
             }
-
-
 
             double[] b = tinhHistogramNewton(a, keyPoints, maxx, maxy);
             double mx = b[0];
@@ -696,8 +694,8 @@ namespace Grabcut
         }
         private double[] getSIFTMpeg7(Image<Bgr, Byte> im)
         {
-            //Bitmap a = (im.ToBitmap());
-            Bitmap a = IResize(im, 512, 512).ToBitmap();
+            Bitmap a = (im.ToBitmap());
+
             Mat src1 = a.ToMat();
 
             SIFT sift = new SIFT();
