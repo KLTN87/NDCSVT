@@ -38,6 +38,7 @@
             this.openFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox_SIFT = new System.Windows.Forms.ComboBox();
@@ -45,11 +46,12 @@
             this.comboBox_HOG = new System.Windows.Forms.ComboBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.mergeTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -140,6 +142,13 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
+            // mergeTextToolStripMenuItem
+            // 
+            this.mergeTextToolStripMenuItem.Name = "mergeTextToolStripMenuItem";
+            this.mergeTextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mergeTextToolStripMenuItem.Text = "Merge Text";
+            this.mergeTextToolStripMenuItem.Click += new System.EventHandler(this.mergeTextToolStripMenuItem_Click);
+            // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
@@ -188,9 +197,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 71);
+            this.listBox1.Location = new System.Drawing.Point(6, 16);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(136, 342);
+            this.listBox1.Size = new System.Drawing.Size(124, 316);
             this.listBox1.TabIndex = 23;
             // 
             // progressBar1
@@ -200,20 +209,23 @@
             this.progressBar1.Size = new System.Drawing.Size(508, 23);
             this.progressBar1.TabIndex = 24;
             // 
-            // mergeTextToolStripMenuItem
+            // groupBox4
             // 
-            this.mergeTextToolStripMenuItem.Name = "mergeTextToolStripMenuItem";
-            this.mergeTextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mergeTextToolStripMenuItem.Text = "Merge Text";
-            this.mergeTextToolStripMenuItem.Click += new System.EventHandler(this.mergeTextToolStripMenuItem_Click);
+            this.groupBox4.Controls.Add(this.listBox1);
+            this.groupBox4.Location = new System.Drawing.Point(12, 70);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(136, 343);
+            this.groupBox4.TabIndex = 25;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Danh sách file";
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(960, 450);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip1);
@@ -228,6 +240,7 @@
             this.menuStrip1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,5 +266,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mergeTextToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

@@ -48,7 +48,7 @@ namespace Grabcut
             opf.Title = "Select multiply images";
             opf.Multiselect = true;
             opf.Filter = "Image Files | *.jpg; *.jpeg; *.png";
-
+            listBox1.Items.Clear();
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 inputFiles = opf.FileNames;
@@ -59,6 +59,7 @@ namespace Grabcut
                     this.listBox1.Items.Add(filename.ToString());
 
                 }
+                groupBox4.Text = "Danh sách file (" + inputFiles.Length + ")";
 
             }
         }
@@ -97,24 +98,24 @@ namespace Grabcut
             }
         }
 
-        private void saveFileString1()
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text File|*.txt";
-            sfd.FileName = "DacTrung";
-            sfd.Title = "Save Text File";
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                string path = sfd.FileName;
-                using (var fs = File.Create(path))
-                using (StreamWriter bw = new StreamWriter(fs))
-                {
-                    bw.Write(richTextBox1.Text);
-                    bw.Close();
-                }
-            }
+        //private void saveFileString1()
+        //{
+        //    SaveFileDialog sfd = new SaveFileDialog();
+        //    sfd.Filter = "Text File|*.txt";
+        //    sfd.FileName = "DacTrung";
+        //    sfd.Title = "Save Text File";
+        //    if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        string path = sfd.FileName;
+        //        using (var fs = File.Create(path))
+        //        using (StreamWriter bw = new StreamWriter(fs))
+        //        {
+        //            bw.Write(richTextBox1.Text);
+        //            bw.Close();
+        //        }
+        //    }
 
-        }
+        //}
 
 
         private void mergeTextToolStripMenuItem_Click(object sender, EventArgs e)
