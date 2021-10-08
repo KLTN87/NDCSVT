@@ -638,7 +638,7 @@ namespace Grabcut
         }
         private double[] getSIFTNewton(Image<Bgr, Byte> im)
         {
-            Bitmap a = convertNewton(IResize(im, 512, 512).ToBitmap());
+            Bitmap a = convertNewton(im.ToBitmap());
 
             Mat src1 = a.ToMat();
 
@@ -662,6 +662,21 @@ namespace Grabcut
                 maxx++;
                 maxy++;
             }
+
+            //string temp = " ";
+
+            //foreach (keypoint item in keypointsList)
+            //{
+
+            //    if (item == null)
+            //    {
+            //        temp = "Khong co gia tri";
+            //    }
+            //    else
+            //        temp = temp + item.X + " " + item.Y + " ";
+            //}
+            //MessageBox.Show(temp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //richTextBox1.Text = temp;
 
             double[] b = tinhHistogramNewton(a, keyPoints, maxx, maxy);
             double mx = b[0];
@@ -758,11 +773,9 @@ namespace Grabcut
             double[] tempArr = c.Take(25).ToArray();
 
             //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
+            ////pictureBox2.Image = sift_feature.ToBitmap();
             //CvInvoke.Imshow("image", sift_feature);
             //CvInvoke.WaitKey(0);
-
-
             return tempArr;
 
 
@@ -1067,10 +1080,11 @@ namespace Grabcut
             //int[] Red = {255, 0, 0};
             //int[] Yellow = {255, 255, 0};
             //int[] Blue = { 0, 0, 255 };
-            //int[] Green = { 0, 128, 0 };
-            //int[] Orange = {255, 165, 0 };
-            //int[] Purple = { 128, 0, 128 };
-            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 128, 0 }, { 255, 165, 0 }, { 128, 0, 128 } };
+            //int[] Green = { 0, 255, 0 };
+            //int[] Orange = {255, 128, 0 };
+            //int[] Purple = { 128, 0, 255 };
+
+            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 } };
             double disMin = Math.Sqrt((c.R - 255) * (c.R - 255) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
             for (int i = 1; i < 6; i++)
             {
@@ -1092,7 +1106,7 @@ namespace Grabcut
                 {
                     if (i == j)
                     {
-                        Color color = bmp.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
+                        Color color = bmp.GetPixel(i,j);
 
                         byte c = (byte)getIndexNewtonColor(color);
 
@@ -1177,7 +1191,7 @@ namespace Grabcut
             //int[] Green = { 0, 128, 0 };
             //int[] Orange = {255, 165, 0 };
             //int[] Purple = { 128, 0, 128 };
-            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 128, 0 }, { 255, 165, 0 }, { 128, 0, 128 } };
+            int[,] color = { { 255, 0, 0 }, { 255, 255, 0 }, { 0, 0, 255 }, { 0, 255, 0 }, { 255, 128, 0 }, { 128, 0, 255 } };
             double disMin = Math.Sqrt((c.R - 255) * (c.R - 255) + (c.G - 0) * (c.G - 0) + (c.B - 0) * (c.B - 0));
             for (int i = 1; i < 6; i++)
             {
