@@ -27,22 +27,12 @@ namespace Grabcut
 
         string[] inputFiles;
 
-        //List<Image<Bgr, byte>> imgInputList = new List<Image<Bgr, byte>>();
+        bool showimg = false;
 
         List<String> vectorList = new List<string>();
 
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            open();
-
-        }
-        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openFolder();
-        }
-
-        private void open()
         {
             OpenFileDialog opf = new OpenFileDialog();
             opf.Title = "Select multiply images";
@@ -54,16 +44,15 @@ namespace Grabcut
                 inputFiles = opf.FileNames;
                 foreach (string filename in inputFiles)
                 {
-                    //Image<Bgr, byte> tempImg = new Image<Bgr, byte>(filename);
-                    //imgInputList.Add(tempImg);
                     this.listBox1.Items.Add(filename.ToString());
 
                 }
-                groupBox4.Text = "Danh sách file (" + inputFiles.Length + ")";
+                groupBox4.Text = "List file (" + inputFiles.Length + ")";
 
             }
+
         }
-        private void openFolder()
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
             {
@@ -78,9 +67,13 @@ namespace Grabcut
                         this.listBox1.Items.Add(filename.ToString());
 
                     }
+                    groupBox4.Text = "List file (" + inputFiles.Length + ")";
                 }
             }
         }
+
+
+
 
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -292,10 +285,23 @@ namespace Grabcut
 
             comboBox_SIFT.DataSource = itemsSIFT;
             comboBox_SIFT.SelectedIndex = 0;
+
+            radioButton1.Checked = true;
+            
+
         }
 
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            showimg = false;
 
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            showimg = true;
+        }
 
 
 
@@ -489,10 +495,13 @@ namespace Grabcut
                 }
                 img = img.Mul(mask.Convert<Bgr, byte>());
 
+                if (showimg == true)
+                {
+                    //hiện ảnh sau khi grabcut
+                    CvInvoke.Imshow("image grabcut", img);
 
-                //hiện ảnh sau khi grabcut
-                CvInvoke.Imshow("image", img);
-                CvInvoke.WaitKey(0);
+                }
+                //CvInvoke.WaitKey(0);
 
 
                 return img;
@@ -699,10 +708,15 @@ namespace Grabcut
 
             double[] tempArr = c.Take(12).ToArray();
 
-            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
-            CvInvoke.Imshow("image", sift_feature);
-            CvInvoke.WaitKey(0);
+            
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift newton", sift_feature);
+
+            }
+
 
 
             return tempArr;
@@ -771,10 +785,26 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             double[] tempArr = c.Take(25).ToArray();
 
+<<<<<<< HEAD
             Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //pictureBox2.Image = sift_feature.ToBitmap();
             CvInvoke.Imshow("image", sift_feature);
             CvInvoke.WaitKey(0);
+=======
+            ////pictureBox2.Image = sift_feature.ToBitmap();
+            //CvInvoke.Imshow("image", sift_feature);
+            //CvInvoke.WaitKey(0);
+
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift mpeg7", sift_feature);
+
+            }
+
+
+>>>>>>> 4be79f773ad233cbe2f2f02993be62dc142787b7
             return tempArr;
 
 
@@ -794,8 +824,16 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //pictureBox2.Image = sift_feature.ToBitmap();
+
+
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift gray", sift_feature);
+
+            }
 
             double[] b = tinhHistogramGray(a);
 
@@ -832,8 +870,17 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
             //pictureBox2.Image = sift_feature.ToBitmap();
+
+
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift red", sift_feature);
+
+            }
+
 
             double[] b = tinhHistogramRed(a);
 
@@ -870,8 +917,15 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
+
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift green", sift_feature);
+
+            }
+
 
             double[] b = tinhHistogramGreen(a);
 
@@ -909,8 +963,16 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
-            //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
-            //pictureBox2.Image = sift_feature.ToBitmap();
+            //hiên ảnh sift
+            if (showimg == true)
+            {
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift blue", sift_feature);
+
+            }
+
+
+
 
             double[] b = tinhHistogramBlue(a);
 
@@ -1301,6 +1363,7 @@ namespace Grabcut
             }
             return gimg;
         }
+
 
     }
 
