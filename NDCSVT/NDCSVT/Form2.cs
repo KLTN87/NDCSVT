@@ -663,19 +663,19 @@ namespace Grabcut
                 maxy++;
             }
 
-            //string temp = " ";
+            string temp = " ";
 
-            //foreach (keypoint item in keypointsList)
-            //{
+            foreach (keypoint item in keypointsList)
+            {
 
-            //    if (item == null)
-            //    {
-            //        temp = "Khong co gia tri";
-            //    }
-            //    else
-            //        temp = temp + item.X + " " + item.Y + " ";
-            //}
-            //MessageBox.Show(temp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if (item == null)
+                {
+                    temp = "Khong co gia tri";
+                }
+                else
+                    temp = temp + item.X + " " + item.Y + " ";
+            }
+            MessageBox.Show(temp, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             //richTextBox1.Text = temp;
 
             double[] b = tinhHistogramNewton(a, keyPoints, maxx, maxy);
