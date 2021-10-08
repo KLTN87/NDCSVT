@@ -347,17 +347,19 @@ namespace Grabcut
 
             foreach (string filename in inputFiles)
             {
-                Image<Bgr, byte> tempImg = new Image<Bgr, byte>(filename);
+                Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
 
-                var imgGrabCut = GrabcutImg(tempImg);
-                var featureSIFT = getSIFTFeature(imgGrabCut, SIFTchoose);
-                var featureHOG = getHOGFeature(imgGrabCut, HOGvalue);
+                var tempimgresize =  IResize(tempimg, 512, 512);
 
-                var gopDacTrung = concatDoubleArray(featureSIFT, featureHOG);
-                var chuanHoaDacTrung = normalizeDoubleArray(gopDacTrung);
+                var imggrabcut = GrabcutImg(tempimgresize);
+                var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
+                var featureHOG = getHOGFeature(imggrabcut, HOGvalue);
+
+                var gopdactrung = concatDoubleArray(featureSIFT, featureHOG);
+                var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
 
 
-                string textDT = string.Join(" ", chuanHoaDacTrung);
+                string textDT = string.Join(" ", chuanhoadactrung);
 
                 vectorList.Add(textDT);
 
