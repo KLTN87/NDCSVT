@@ -361,7 +361,7 @@ namespace Grabcut
                 //{
                 //    tempimg = IResize(tempimg, 32, 32);
                 //}
-                tempimg = IResize(tempimg, 128, 128);
+                tempimg = IResize(tempimg, 512, 512);
 
                 var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
@@ -371,9 +371,9 @@ namespace Grabcut
                 var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
 
 
-                string textDT = string.Join(" ", chuanhoadactrung);
+                //string textDT = string.Join(" ", chuanhoadactrung);
 
-                //string textDT = string.Join(" ", featureSIFT);// test sift
+                string textDT = string.Join(" ", featureSIFT);// test sift
 
                 vectorList.Add(textDT);
 
@@ -830,7 +830,21 @@ namespace Grabcut
 
             }
 
-            double[] b = tinhHistogramGray(a);
+            MKeyPoint[] keyPoints = vkPoint.ToArray();
+
+            keypoint key;
+            List<keypoint> keypointsList = new List<keypoint>();
+            double maxx = 0, maxy = 0;
+            foreach (MKeyPoint keyPoint in keyPoints)
+            {
+                key = new keypoint(keyPoint.Point.X, keyPoint.Point.Y, keyPoint.Size);
+                keypointsList.Add(key);
+                maxx++;
+                maxy++;
+            }
+
+
+            double[] b = tinhHistogramGray(a, keyPoints, maxx, maxy);
 
             double mx = b[0];
             double mn = b[0];
@@ -1074,16 +1088,19 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramGray(Bitmap anhxam)
+        public double[] tinhHistogramGray(Bitmap anhxam, MKeyPoint[] key, double maxx, double maxy)
         {
             double[] histogram = new double[256];
-            for (int i = 0; i < anhxam.Width; i++)
+            for (int i = 0; i < maxx; i++)
             {
-                for (int j = 0; j < anhxam.Height; j++)
+                for (int j = 0; j < maxy; j++)
                 {
-                    Color color = anhxam.GetPixel(i, j);
-                    byte gray = color.G; // chuyen sang anh don sac thi xam = r = g = b
-                    histogram[gray]++;
+                    if (i == j)
+                    {
+                        Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
+                        byte gray = color.G; // chuyen sang anh don sac thi xam = r = g = b
+                        histogram[gray]++;
+                    }
                 }
             }
             return histogram;
