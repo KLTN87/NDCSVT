@@ -268,7 +268,7 @@ namespace Grabcut
             };
 
             comboBox_HOG.DataSource = itemsHOG;
-            comboBox_HOG.SelectedIndex = 0;
+            comboBox_HOG.SelectedIndex = 3;
 
 
             comboBox_SIFT.DisplayMember = "Text";
@@ -284,7 +284,7 @@ namespace Grabcut
             };
 
             comboBox_SIFT.DataSource = itemsSIFT;
-            comboBox_SIFT.SelectedIndex = 0;
+            comboBox_SIFT.SelectedIndex = 2;
 
             radioButton1.Checked = true;
             
@@ -338,6 +338,7 @@ namespace Grabcut
             listBox1.Items.Clear();
             richTextBox1.Clear();
             vectorList.Clear();
+            groupBox4.Text = "List file";
 
         }
 
