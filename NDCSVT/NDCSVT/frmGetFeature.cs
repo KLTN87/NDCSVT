@@ -372,9 +372,9 @@ namespace Grabcut
                 var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
 
 
-                //string textDT = string.Join(" ", chuanhoadactrung);
+                string textDT = string.Join(" ", chuanhoadactrung);
 
-                string textDT = string.Join(" ", featureSIFT);// test sift
+                //string textDT = string.Join(" ", featureSIFT);// test sift
 
                 vectorList.Add(textDT);
 
