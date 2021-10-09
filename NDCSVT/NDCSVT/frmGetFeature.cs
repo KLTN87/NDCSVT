@@ -885,21 +885,21 @@ namespace Grabcut
 
             }
 
-            MKeyPoint[] keyPoints = vkPoint.ToArray();
+            //MKeyPoint[] keyPoints = vkPoint.ToArray();
 
-            keypoint key;
-            List<keypoint> keypointsList = new List<keypoint>();
-            double maxx = 0, maxy = 0;
-            foreach (MKeyPoint keyPoint in keyPoints)
-            {
-                key = new keypoint(keyPoint.Point.X, keyPoint.Point.Y, keyPoint.Size);
-                keypointsList.Add(key);
-                maxx++;
-                maxy++;
-            }
+            //keypoint key;
+            //List<keypoint> keypointsList = new List<keypoint>();
+            //double maxx = 0, maxy = 0;
+            //foreach (MKeyPoint keyPoint in keyPoints)
+            //{
+            //    key = new keypoint(keyPoint.Point.X, keyPoint.Point.Y, keyPoint.Size);
+            //    keypointsList.Add(key);
+            //    maxx++;
+            //    maxy++;
+            //}
 
 
-            double[] b = tinhHistogramGray(a, keyPoints, maxx, maxy);
+            double[] b = tinhHistogramGray(a);
 
             double mx = b[0];
             double mn = b[0];
@@ -1068,13 +1068,13 @@ namespace Grabcut
                 for (int y = 0; y < gimg.Height; y++)
                 {
                     Color pixel = img.GetPixel(x, y);
-                    byte red = pixel.R;
-                    byte green = pixel.G;
-                    byte blue = pixel.B;
+                    //byte red = pixel.R;
+                    //byte green = pixel.G;
+                    //byte blue = pixel.B;
                     byte a = pixel.A;
-
-                    byte gray = (byte)((red + green + blue) / 3);
-                    gimg.SetPixel(x, y, Color.FromArgb(a, gray, gray, gray));
+                    int grayScale = (int)((pixel.R * 0.3) + (pixel.G * 0.59) + (pixel.B * 0.11));
+                    //byte gray = (byte)((red + green + blue) / 3);
+                    gimg.SetPixel(x, y, Color.FromArgb(a, grayScale, grayScale, grayScale));
                 }
             }
             return gimg;
@@ -1143,19 +1143,20 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramGray(Bitmap anhxam, MKeyPoint[] key, double maxx, double maxy)
+        public double[] tinhHistogramGray(Bitmap anhxam)
         {
             double[] histogram = new double[256];
-            for (int i = 0; i < maxx; i++)
+            for (int i = 0; i < anhxam.Width; i++)
             {
-                for (int j = 0; j < maxy; j++)
+                for (int j = 0; j < anhxam.Height; j++)
                 {
-                    if (i == j)
-                    {
-                        Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
-                        byte gray = color.G; // chuyen sang anh don sac thi xam = r = g = b
+                    //if (i == j)
+                    //{
+                        Color color = anhxam.GetPixel(i,j);
+                        byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
+
                         histogram[gray]++;
-                    }
+                    //}
                 }
             }
             return histogram;
