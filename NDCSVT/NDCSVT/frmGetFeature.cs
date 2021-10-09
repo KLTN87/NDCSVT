@@ -68,6 +68,13 @@ namespace Grabcut
 
                     }
                     groupBox4.Text = "List file (" + inputFiles.Length + ")";
+
+                    try //nếu tên folder là số thì gán label bằng tên folder
+                    {
+                        string foldername = Path.GetFileName(fbd.SelectedPath);
+                        comboBox_Label.SelectedIndex = int.Parse(foldername);
+                    }
+                    catch { }
                 }
             }
         }
@@ -139,6 +146,10 @@ namespace Grabcut
             SaveFileDialog save = new SaveFileDialog();
             save.Filter = "Text|*.txt";
             save.FilterIndex = 1;
+
+            //tên file dựa theo label
+            string nolabel = comboBox_Label.SelectedValue.ToString();
+            save.FileName = nolabel;
 
             if (save.ShowDialog() == DialogResult.OK)
             {
