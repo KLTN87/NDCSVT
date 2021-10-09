@@ -373,7 +373,7 @@ namespace Grabcut
                 //{
                 //    tempimg = IResize(tempimg, 32, 32);
                 //}
-                tempimg = IResize(tempimg, 128, 128);
+                tempimg = IResize(tempimg, 64, 64);
 
                 var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
@@ -913,7 +913,7 @@ namespace Grabcut
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
 
-            Bitmap a = convertGrayScale(IResize(im, 512, 512).ToBitmap());
+            Bitmap a = convertGrayScale(im.ToBitmap());
 
             Mat src1 = a.ToMat();
 
