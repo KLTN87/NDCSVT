@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormCropCC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCropCC.Designer.cs">
+      <DependentUpon>FormCropCC.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGrabCut.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Compile Include="keypoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCropCC.resx">
+      <DependentUpon>FormCropCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGetFeature.resx">
       <DependentUpon>frmGetFeature.cs</DependentUpon>
     </EmbeddedResource>

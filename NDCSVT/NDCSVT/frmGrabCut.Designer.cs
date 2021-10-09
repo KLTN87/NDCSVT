@@ -124,7 +124,6 @@ namespace Grabcut
             this.grabCutToolStripMenuItem.Name = "grabCutToolStripMenuItem";
             this.grabCutToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.grabCutToolStripMenuItem.Text = "GrabCut";
-            this.grabCutToolStripMenuItem.Click += new System.EventHandler(this.grabCutToolStripMenuItem_Click);
             // 
             // brightnessAndToolStripMenuItem
             // 

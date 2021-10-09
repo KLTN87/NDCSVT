@@ -88,37 +88,7 @@ namespace Grabcut
             pictureBox1.Image = gray.AsBitmap();
         }
 
-        private void grabCutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Grabcut();
 
-            //phan lam xong
-
-            //Matrix<double> bg = new Matrix<double>(1, 65);
-            //bg.SetZero();
-            //Matrix<double> fg = new Matrix<double>(1, 65);
-            //fg.SetZero();
-            //Image<Gray, byte> mask = new Image<Gray, byte>(img.Size);
-            //Rectangle rect = new Rectangle(img.Cols / 10, 2, (int)((double)img.Width / (0.75)), img.Height);
-
-            //CvInvoke.GrabCut(img, mask, rect,
-            //   bg, fg, 5, Emgu.CV.CvEnum.GrabcutInitType.InitWithRect);
-            //for (int x = 0; x < mask.Cols; x++)
-            //{
-            //    for (int y = 0; y < mask.Rows; y++)
-            //    {
-            //        if (mask[y, x].Intensity == new Gray(1).Intensity || mask[y, x].Intensity == new Gray(3).Intensity)
-            //        {
-            //            mask[y, x] = new Gray(1);
-            //        }
-            //        else
-            //        {
-            //            mask[y, x] = new Gray(0);
-            //        }
-            //    }
-            //}
-          
-        }
         private void Grabcut()
         {
             try
