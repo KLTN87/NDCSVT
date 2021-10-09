@@ -382,8 +382,13 @@ namespace Grabcut
                 var gopdactrung = concatDoubleArray(featureSIFT, featureHOG);
                 var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
 
+                List<String> stringdactrung = convertDoubleArrayToStringArray(chuanhoadactrung);
 
-                string textDT = string.Join(" ", chuanhoadactrung);
+
+                string textDT = string.Join(" ", stringdactrung);
+
+
+
 
                 //string textDT = string.Join(" ", featureSIFT);// test sift
 
@@ -402,6 +407,11 @@ namespace Grabcut
             return elapsedMs.ToString();
 
         }
+
+
+
+
+
 
         private void print10FirstVector(List<String> dsVectoc, int label)
         {
@@ -425,22 +435,33 @@ namespace Grabcut
 
         private double normalizeDouble(double value, double min, double max)
         {
+
+            //value = Math.Round(value, 15);
+            //min = Math.Round(min, 15);
+            //max = Math.Round(max, 15);
+
+
             if (value == 0 && min == 0 && max == 0)
             {
                 return 0;
             }
 
             double temp = (value - min) / (max - min);
+
+            //Math.Round(temp, 15);
+
             return temp;
         }
         private double[] normalizeDoubleArray(double[] arr)
         {
             double[] terms = new double[arr.Length];
+
             for (int runs = 0; runs < arr.Length; runs++)
             {
 
                 terms[runs] = normalizeDouble(arr[runs], arr.Min(), arr.Max());
             }
+
 
             return terms;
         }
@@ -451,7 +472,25 @@ namespace Grabcut
             return result;
         }
 
+        private List<String> convertDoubleArrayToStringArray(double[] arr) //double sang string khi số quá nhỏ dính ký tự thập phân E
+        {
+            List<String> temp = new List<String>();
+            foreach (double ichuan in arr)
+            {
 
+                String tempsdt;
+                if (ichuan == 0 || ichuan == 1)
+                {
+                    tempsdt = ichuan.ToString();
+                }
+                else
+                {
+                    tempsdt = String.Format("{0:0.0000000000000000000000}", ichuan);
+                }
+                temp.Add(tempsdt);
+            }
+            return temp;
+        }
 
 
         //Hàm của Grabcut
