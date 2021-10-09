@@ -874,7 +874,7 @@ namespace Grabcut
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
 
-            Bitmap a = convertGrayScale(im.ToBitmap());
+            Bitmap a = convertGrayScale(IResize(im, 512, 512).ToBitmap());
 
             Mat src1 = a.ToMat();
 
