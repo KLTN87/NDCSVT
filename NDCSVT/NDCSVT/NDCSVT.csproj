@@ -47,50 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormCropCC.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCropCC.Designer.cs">
-      <DependentUpon>FormCropCC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmGrabCut.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmGrabCut.Designer.cs">
-      <DependentUpon>frmGrabCut.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmGetFeature.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmGetFeature.Designer.cs">
       <DependentUpon>frmGetFeature.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmHOG.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmHOG.Designer.cs">
-      <DependentUpon>frmHOG.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmSIFT.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSIFT.Designer.cs">
-      <DependentUpon>frmSIFT.cs</DependentUpon>
-    </Compile>
     <Compile Include="keypoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormCropCC.resx">
-      <DependentUpon>FormCropCC.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmGetFeature.resx">
       <DependentUpon>frmGetFeature.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmGrabCut.resx">
-      <DependentUpon>frmGrabCut.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmHOG.resx">
-      <DependentUpon>frmHOG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

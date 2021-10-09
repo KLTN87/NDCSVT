@@ -18,9 +18,9 @@ using System.IO;
 
 namespace Grabcut
 {
-    public partial class Form2 : Form
+    public partial class frmGetFeature : Form
     {
-        public Form2()
+        public frmGetFeature()
         {
             InitializeComponent();
         }
@@ -287,7 +287,7 @@ namespace Grabcut
             comboBox_SIFT.SelectedIndex = 2;
 
             radioButton1.Checked = true;
-            
+
 
         }
 
@@ -362,7 +362,7 @@ namespace Grabcut
                 //{
                 //    tempimg = IResize(tempimg, 32, 32);
                 //}
-                tempimg = IResize(tempimg, 512, 512);
+                tempimg = IResize(tempimg, 128, 128);
 
                 var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
@@ -414,7 +414,7 @@ namespace Grabcut
 
         private double normalizeDouble(double value, double min, double max)
         {
-            if(value ==0 && min == 0 && max == 0)
+            if (value == 0 && min == 0 && max == 0)
             {
                 return 0;
             }
@@ -496,6 +496,8 @@ namespace Grabcut
                 }
                 img = img.Mul(mask.Convert<Bgr, byte>());
 
+                img = cropNoUseBlackAreaImg(img);
+
                 if (showimg == true)
                 {
                     //hiện ảnh sau khi grabcut
@@ -517,6 +519,58 @@ namespace Grabcut
         }
 
 
+        public Image<Bgr, Byte> cropNoUseBlackAreaImg(Image<Bgr, Byte> img)
+        {
+            List<int> listNonBlack = new List<int>();
+            listNonBlack = getNonBlackArea(img);
+            Mat ROI = new Mat(img.Mat, new Range(listNonBlack[2], listNonBlack[3]), new Range(listNonBlack[0], listNonBlack[1])).Clone();
+            Image<Bgr, Byte> temp = ROI.ToImage<Bgr, Byte>();
+            return temp;
+        }
+
+
+
+        public List<int> getNonBlackArea(Image<Bgr, Byte> imgBlack)
+        {
+            Bitmap img = imgBlack.AsBitmap();
+            Color pixelColor;
+            List<int> listX = new List<int>();
+            List<int> listY = new List<int>();
+            List<int> listMinMaxXY = new List<int>();
+            try
+            {
+
+                for (int y = 0; y < img.Height; y++) //tìm tọa độ không phải là màu đen - màu nền sau grabcut
+                {
+                    for (int x = 0; x < img.Width; x++)
+                    {
+                        pixelColor = img.GetPixel(x, y);
+                        if (pixelColor.R != 0 && pixelColor.G != 0 && pixelColor.B != 0)
+                        {
+                            listX.Add(x);
+                            listY.Add(y);
+                        }
+                    }
+                }
+
+                listMinMaxXY.Add(listX.Min());
+                listMinMaxXY.Add(listX.Max());
+                listMinMaxXY.Add(listY.Min());
+                listMinMaxXY.Add(listY.Max());
+                //listMinMaxXY(minx, maxx, miny, maxy);
+            }
+
+            catch
+            {
+                listMinMaxXY.Add(0);
+                listMinMaxXY.Add(0);
+                listMinMaxXY.Add(0);
+                listMinMaxXY.Add(0);
+
+            }
+            return listMinMaxXY;
+
+        }
 
 
 
@@ -613,11 +667,11 @@ namespace Grabcut
         {
             double[] sift = new double[0];
 
-            if (numberChoose==0)
+            if (numberChoose == 0)
             {
                 sift = getSIFTNewton(im);
             }
-            else  if (numberChoose == 1)
+            else if (numberChoose == 1)
             {
                 sift = getSIFTMpeg7(im);
             }
@@ -709,7 +763,7 @@ namespace Grabcut
 
             double[] tempArr = c.Take(6).ToArray();
 
-            
+
             //hiên ảnh sift
             if (showimg == true)
             {
@@ -794,7 +848,7 @@ namespace Grabcut
             //hiên ảnh sift
             if (showimg == true)
             {
-            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift mpeg7", sift_feature);
 
             }
@@ -1257,11 +1311,11 @@ namespace Grabcut
                 {
                     //if (i == j)
                     //{
-                        Color color = bmp.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
+                    Color color = bmp.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
 
-                        byte c = (byte)getIndexMPEG7Color(color);
+                    byte c = (byte)getIndexMPEG7Color(color);
 
-                        histogram[c]++;
+                    histogram[c]++;
                     //}
                 }
             }
@@ -1378,10 +1432,11 @@ namespace Grabcut
         }
 
 
+
+
+
+
     }
-
-
-
 
 
 
