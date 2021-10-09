@@ -1,6 +1,6 @@
 ﻿namespace Grabcut
 {
-    partial class Form2
+    partial class frmGetFeature
     {
         /// <summary>
         /// Required designer variable.

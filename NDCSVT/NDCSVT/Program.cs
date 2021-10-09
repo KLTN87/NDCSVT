@@ -16,7 +16,7 @@ namespace Grabcut
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormCropCC());
+            Application.Run(new frmGetFeature());
         }
     }
 }
