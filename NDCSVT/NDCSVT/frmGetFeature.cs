@@ -711,7 +711,6 @@ namespace Grabcut
 
             double[] hog = GetVector(im, des);
 
-            textBox1.Text = hog.Length.ToString();
             return hog;
         }
 

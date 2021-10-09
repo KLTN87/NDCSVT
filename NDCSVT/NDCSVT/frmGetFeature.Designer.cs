@@ -49,7 +49,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -249,19 +248,11 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "List file";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(253, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 26;
-            // 
             // frmGetFeature
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(960, 450);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox1);
@@ -270,7 +261,7 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Name = "frmGetFeature";
-            this.Text = "Form2";
+            this.Text = "frmGetFeature";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -307,6 +298,5 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
