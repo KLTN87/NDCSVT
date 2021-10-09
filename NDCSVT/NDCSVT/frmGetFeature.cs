@@ -373,7 +373,7 @@ namespace Grabcut
                 //{
                 //    tempimg = IResize(tempimg, 32, 32);
                 //}
-                tempimg = IResize(tempimg, 64, 64);
+                tempimg = IResize(tempimg, 128, 128);
 
                 var imggrabcut = GrabcutImg(tempimg);
                 var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
