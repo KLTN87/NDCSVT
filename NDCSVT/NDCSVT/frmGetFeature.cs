@@ -34,11 +34,12 @@ namespace Grabcut
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            clearInput();
             OpenFileDialog opf = new OpenFileDialog();
             opf.Title = "Select multiply images";
             opf.Multiselect = true;
             opf.Filter = "Image Files | *.jpg; *.jpeg; *.png";
-            listBox1.Items.Clear();
+            
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 inputFiles = opf.FileNames;
@@ -54,6 +55,7 @@ namespace Grabcut
         }
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            clearInput();
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
@@ -273,9 +275,9 @@ namespace Grabcut
                 new { Text = "144 feature values", Value = "144" },
                 new { Text = "576 feature values", Value = "576" },
                 new { Text = "2304 feature values", Value = "2304" },
-                new { Text = "5832 feature values", Value = "5832" },
-                new { Text = "11664 feature values", Value = "11664" },
-                new { Text = "22032 feature values", Value = "22032" }
+                new { Text = "5184 feature values", Value = "5184" },
+                new { Text = "9360 feature values", Value = "9360" },
+                new { Text = "18720 feature values", Value = "18720" }
             };
 
             comboBox_HOG.DataSource = itemsHOG;
@@ -343,15 +345,24 @@ namespace Grabcut
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //imgInputList.Clear();
-            Array.Clear(inputFiles, 0, inputFiles.Length);
 
+            clearInput();
+        }
+
+        private void clearInput()
+        {
+            try
+            {
+                Array.Clear(inputFiles, 0, inputFiles.Length);
+            }
+            catch { }
             listBox1.Items.Clear();
             richTextBox1.Clear();
             vectorList.Clear();
             groupBox4.Text = "List file";
 
         }
+
 
         private string startProcessing(string[] dsFile, int label, int HOGvalue, int SIFTchoose)
         {
@@ -376,8 +387,10 @@ namespace Grabcut
                 tempimg = IResize(tempimg, 128, 128);
 
                 var imggrabcut = GrabcutImg(tempimg);
-                var featureSIFT = getSIFTFeature(imggrabcut, SIFTchoose);
-                var featureHOG = getHOGFeature(imggrabcut, HOGvalue);
+                var tempimg2 = IResize(imggrabcut, 128, 128);
+
+                var featureSIFT = getSIFTFeature(tempimg2, SIFTchoose);
+                var featureHOG = getHOGFeature(tempimg2, HOGvalue);
 
                 var gopdactrung = concatDoubleArray(featureSIFT, featureHOG);
                 var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
@@ -485,7 +498,7 @@ namespace Grabcut
                 }
                 else
                 {
-                    tempsdt = String.Format("{0:0.0000000000000000000000}", ichuan);
+                    tempsdt = String.Format("{0:0.00000000000000000}", ichuan);
                 }
                 temp.Add(tempsdt);
             }
@@ -633,9 +646,7 @@ namespace Grabcut
         }
         private double[] GetVector(Image<Bgr, Byte> im, HOGDescriptor hog)
         {
-
-            Image<Bgr, Byte> imageOfInterest = IResize(im, 512, 512);
-            float[] temp = hog.Compute(imageOfInterest, Size.Empty, Size.Empty, null);
+            float[] temp = hog.Compute(im, Size.Empty, Size.Empty, null);
             double[] doubleArray = Array.ConvertAll(temp, x => (double)x);
             return doubleArray;
 
@@ -646,57 +657,61 @@ namespace Grabcut
 
             if (numberValues == 36)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(512, 512),
-                new Size(32, 32), new Size(256, 256), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
+                new Size(16, 16), new Size(64, 64), 9);
 
             }
             else if (numberValues == 144)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(512, 512),
-                     new Size(32, 32), new Size(128, 128), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
+                     new Size(16, 16), new Size(32, 32), 9);
 
             }
 
             else if (numberValues == 576)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(512, 512),
-                    new Size(32, 32), new Size(64, 64), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
+                     new Size(16, 16), new Size(8, 32), 9);
 
             }
 
             else if (numberValues == 2304)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(512, 512),
-                    new Size(32, 32), new Size(32, 32), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(32, 32),
+                    new Size(32, 32), new Size(8, 8), 9);
 
             }
 
-            else if (numberValues == 5832)
+            else if (numberValues == 5184)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(256, 256),
-                     new Size(32, 32), new Size(64, 128), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(64, 64),
+                    new Size(32, 32), new Size(8, 8), 9);
 
             }
-            else if (numberValues == 11664)
+            else if (numberValues == 9360)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(256, 256),
-                     new Size(32, 32), new Size(64, 64), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(32, 64),
+                    new Size(8, 16), new Size(8, 16), 9);
 
             }
-            else if (numberValues == 22032)
+
+
+            else if (numberValues == 18720)
             {
-                des = new HOGDescriptor(new Size(512, 512), new Size(256, 256),
-                     new Size(16, 32), new Size(64, 64), 9);
+                des = new HOGDescriptor(new Size(128, 128), new Size(32, 64),
+                    new Size(8, 16), new Size(8, 8), 9);
 
             }
             else
             {
                 //des = new HOGDescriptor();
-                des = new HOGDescriptor(new Size(512, 512), new Size(512, 512),
-                    new Size(32, 32), new Size(256, 256), 9); //36
+                des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
+                new Size(16, 16), new Size(64, 64), 9); //36
             }
 
             double[] hog = GetVector(im, des);
+
+            textBox1.Text = hog.Length.ToString();
             return hog;
         }
 
@@ -913,7 +928,7 @@ namespace Grabcut
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
 
-            Bitmap a = convertGrayScale(IResize(im, 128, 128).ToBitmap());
+            Bitmap a = convertGrayScale(im.ToBitmap());
 
             Mat src1 = a.ToMat();
 
