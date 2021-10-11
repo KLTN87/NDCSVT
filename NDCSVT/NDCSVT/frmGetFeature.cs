@@ -373,9 +373,10 @@ namespace Grabcut
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
 
-
-            foreach (string filename in inputFiles)
+            Parallel.ForEach(inputFiles, filename =>
             {
+
+
                 Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
 
                 int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
@@ -407,10 +408,12 @@ namespace Grabcut
 
                 vectorList.Add(textDT);
 
-                pcbValue++;
-                progressBar1.Value = pcbValue;
+                //pcbValue++;
 
-            }
+                //progressBar1.Value = pcbValue;
+
+            });
+        
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
