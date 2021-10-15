@@ -335,7 +335,7 @@ namespace Grabcut
 
                 string thoigianthucthi = startProcessing(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
 
-
+                Console.Beep(1000, 100);
                 MessageBox.Show("Hoàn thành " + thoigianthucthi + "  ms");
 
             }
@@ -1214,13 +1214,9 @@ namespace Grabcut
             {
                 for (int j = 0; j < maxy; j++)
                 {
-                    //if (i == j)
-                    //{
                         Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
                         byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
-
                         histogram[gray]++;
-                    //}
                 }
             }
             return histogram;
