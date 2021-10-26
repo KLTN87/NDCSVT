@@ -26,7 +26,7 @@ namespace Grabcut
         }
         private string[] inputFiles;
         private string inputtxt;
-        private bool showimg = false;
+        //private bool showimg = false;
         Image<Bgr, byte> imgInput;
         private List<String> vectorList = new List<string>();
         private List<String> Get_Train = new List<string>();
@@ -299,22 +299,22 @@ namespace Grabcut
             comboBox_SIFT.DataSource = itemsSIFT;
             comboBox_SIFT.SelectedIndex = 2;
 
-            radioButton1.Checked = true;
+            //radioButton1.Checked = true;
 
 
         }
 
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            showimg = false;
+        //private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    showimg = false;
 
-        }
+        //}
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-            showimg = true;
-        }
+        //private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    showimg = true;
+        //}
 
 
 
@@ -335,7 +335,7 @@ namespace Grabcut
 
                 string thoigianthucthi = startProcessing(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
 
-                Console.Beep(1000, 100);
+                Console.Beep(500, 100);
                 MessageBox.Show("Hoàn thành " + thoigianthucthi + "  ms");
 
             }
@@ -380,10 +380,6 @@ namespace Grabcut
 
                 int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
 
-                //if (tempimgwsize < 32) // khi ảnh quá nhỏ
-                //{
-                //    tempimg = IResize(tempimg, 32, 32);
-                //}
                 tempimg = IResize(tempimg, 128, 128);
 
                 var imggrabcut = GrabcutImg(tempimg);
@@ -830,13 +826,13 @@ namespace Grabcut
             double[] tempArr = c.Take(6).ToArray();
 
 
-            //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift newton", sift_feature);
+            ////hiên ảnh sift
+            //if (showimg == true)
+            //{
+            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    CvInvoke.Imshow("image sift newton", sift_feature);
 
-            }
+            //}
 
 
 
@@ -911,13 +907,13 @@ namespace Grabcut
             //CvInvoke.Imshow("image", sift_feature);
             //CvInvoke.WaitKey(0);
 
-            //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift mpeg7", sift_feature);
+            ////hiên ảnh sift
+            //if (showimg == true)
+            //{
+            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    CvInvoke.Imshow("image sift mpeg7", sift_feature);
 
-            }
+            //}
 
 
 
@@ -1003,13 +999,13 @@ namespace Grabcut
             //pictureBox2.Image = sift_feature.ToBitmap();
 
 
-            //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift red", sift_feature);
+            ////hiên ảnh sift
+            //if (showimg == true)
+            //{
+            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    CvInvoke.Imshow("image sift red", sift_feature);
 
-            }
+            //}
 
 
             double[] b = tinhHistogramRed(a);
@@ -1048,13 +1044,13 @@ namespace Grabcut
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
 
-            //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift green", sift_feature);
+            ////hiên ảnh sift
+            //if (showimg == true)
+            //{
+            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    CvInvoke.Imshow("image sift green", sift_feature);
 
-            }
+            //}
 
 
             double[] b = tinhHistogramGreen(a);
@@ -1093,13 +1089,13 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
-            //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift blue", sift_feature);
+            ////hiên ảnh sift
+            //if (showimg == true)
+            //{
+            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    CvInvoke.Imshow("image sift blue", sift_feature);
 
-            }
+            //}
 
 
 
@@ -1500,8 +1496,36 @@ namespace Grabcut
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 inputtxt = opf.FileName;
-                Cleartxt();
+                try //nếu tên txt là số thì gán label bằng tên txt
+                {
+                    string filename1 = Path.GetFileNameWithoutExtension(inputtxt);
+                    comboBox_Label.SelectedIndex = int.Parse(filename1);
+                }
+                catch { }
+
+                
+                Get_Test.Clear();
+                Get_Train.Clear();
+
                 readtxtfile();
+
+                string path = SaveFile70();
+                using (TextWriter writer = File.CreateText(path))
+                {
+                    foreach (string item in Get_Train)
+                    {
+                        writer.WriteLine(item);
+                    }
+                }
+                string path1 = SaveFile30();
+                using (TextWriter writer = File.CreateText(path1))
+                {
+                    foreach (string item in Get_Test)
+                    {
+                        writer.WriteLine(item);
+                    }
+                }
+
             }
         }
         private void readtxtfile()
@@ -1525,15 +1549,15 @@ namespace Grabcut
                     {
                         Get_Train.Add(line);
                         dem70++;
-                        label7.Text = dem70.ToString();
+                        //label7.Text = dem70.ToString();
                     }
                     else
                     {
                         Get_Test.Add(line);
                         dem30++;
-                        label9.Text = dem30.ToString();
+                        //label9.Text = dem30.ToString();
                     }
-                    label5.Text = tongsodong.ToString();
+                    //label5.Text = tongsodong.ToString();
                 }
             }
             else
@@ -1546,40 +1570,22 @@ namespace Grabcut
                     {
                         Get_Train.Add(line);
                         dem70++;
-                        label7.Text = dem70.ToString();
+                        //label7.Text = dem70.ToString();
                     }
                     else
                     {
                         Get_Test.Add(line);
                         dem30++;
-                        label9.Text = dem30.ToString();
+                        //label9.Text = dem30.ToString();
                     }
-                    label5.Text = tongsodong.ToString();
+                    //label5.Text = tongsodong.ToString();
                 }
 
             }
         }
        
         
-        private void saveTestTrainToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string path = SaveFile70();
-            using (TextWriter writer = File.CreateText(path))
-            {
-                foreach (string item in Get_Train)
-                {
-                    writer.WriteLine(item);
-                }
-            }
-            string path1 = SaveFile30();
-            using (TextWriter writer = File.CreateText(path1))
-            {
-                foreach (string item in /*listBox3.Items*/ Get_Test)
-                {
-                    writer.WriteLine(item);
-                }
-            }
-        }
+
         private string SaveFile70()
         {
             SaveFileDialog save = new SaveFileDialog();
@@ -1617,14 +1623,7 @@ namespace Grabcut
 
             return null;
         }
-        private void Cleartxt()
-        {
-            Get_Test.Clear();
-            Get_Train.Clear();
-            label5.Text = "0";
-            label7.Text = "0";
-            label9.Text = "0";
-        }
+
     }
 
 
