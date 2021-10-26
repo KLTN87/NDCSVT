@@ -39,7 +39,7 @@ namespace Grabcut
             opf.Title = "Select multiply images";
             opf.Multiselect = true;
             opf.Filter = "Image Files | *.jpg; *.jpeg; *.png";
-            
+
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 inputFiles = opf.FileNames;
@@ -1216,9 +1216,9 @@ namespace Grabcut
             {
                 for (int j = 0; j < maxy; j++)
                 {
-                        Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
-                        byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
-                        histogram[gray]++;
+                    Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
+                    byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
+                    histogram[gray]++;
                 }
             }
             return histogram;
@@ -1516,26 +1516,51 @@ namespace Grabcut
             int tongsodong = lines.Count();
             int lay70 = tongsodong * 70 / 100;
             int dem70 = 0, dem30 = 0;
-            foreach (var line in lines)
-            {
-                sodong++;
+            if (lay70 % 2 == 0) {
+                foreach (var line in lines)
+                {
+                    sodong++;
 
-                if (sodong <= lay70)
-                {
-                    Get_Train.Add(line);
-                    dem70++;
-                    label7.Text = dem70.ToString();
+                    if (sodong <= lay70)
+                    {
+                        Get_Train.Add(line);
+                        dem70++;
+                        label7.Text = dem70.ToString();
+                    }
+                    else
+                    {
+                        Get_Test.Add(line);
+                        dem30++;
+                        label9.Text = dem30.ToString();
+                    }
+                    label5.Text = tongsodong.ToString();
                 }
-                else
+            }
+            else
+            {
+                foreach (var line in lines)
                 {
-                    Get_Test.Add(line);
-                    dem30++;
-                    label9.Text = dem30.ToString();
+                    sodong++;
+
+                    if (sodong < lay70)
+                    {
+                        Get_Train.Add(line);
+                        dem70++;
+                        label7.Text = dem70.ToString();
+                    }
+                    else
+                    {
+                        Get_Test.Add(line);
+                        dem30++;
+                        label9.Text = dem30.ToString();
+                    }
+                    label5.Text = tongsodong.ToString();
                 }
-                label5.Text = tongsodong.ToString();
+
             }
         }
-
+       
+        
         private void saveTestTrainToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string path = SaveFile70();
