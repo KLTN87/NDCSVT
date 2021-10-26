@@ -20,11 +20,12 @@ namespace Grabcut
         }
 
         private string[] inputFiles;
-
+        private string inputtxt;
         private bool showimg = false;
-
+        Image<Bgr, byte> imgInput;
         private List<String> vectorList = new List<string>();
-
+        private List<String> Get_Train = new List<string>();
+        private List<String> Get_Test = new List<string>();
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clearInput();
@@ -39,8 +40,11 @@ namespace Grabcut
                 foreach (string filename in inputFiles)
                 {
                     this.listBox1.Items.Add(filename.ToString());
+                    imgInput = new Image<Bgr, byte>(filename);
                 }
                 groupBox4.Text = "List file (" + inputFiles.Length + ")";
+                pictureBox1.Image = imgInput.ToBitmap(128, 128);
+
             }
         }
 
@@ -283,11 +287,11 @@ namespace Grabcut
 
         private void clearInput()
         {
-            try
-            {
-                Array.Clear(inputFiles, 0, inputFiles.Length);
-            }
-            catch { }
+            //try
+            //{
+            //    Array.Clear(inputFiles, 0, inputFiles.Length);
+            //}
+            //catch { }
             listBox1.Items.Clear();
             richTextBox1.Clear();
             vectorList.Clear();
@@ -318,6 +322,7 @@ namespace Grabcut
                 var tempimg2 = IResize(imggrabcut, 128, 128);
 
                 var featureSIFT = getSIFTFeature(tempimg2, SIFTchoose);
+
                 var featureHOG = getHOGFeature(tempimg2, HOGvalue);
 
                 var gopdactrung = concatDoubleArray(featureSIFT, featureHOG);
@@ -466,11 +471,12 @@ namespace Grabcut
 
                 img = cropNoUseBlackAreaImg(img);
 
-                if (showimg == true)
-                {
-                    //hiện ảnh sau khi grabcut
-                    CvInvoke.Imshow("image grabcut", img);
-                }
+                //if (showimg == true)
+                //{
+                //    //hiện ảnh sau khi grabcut
+                //    //CvInvoke.Imshow("image grabcut", img);
+                pictureBox2.Image = img.ToBitmap();
+                //}
                 //CvInvoke.WaitKey(0);
 
                 return img;
@@ -788,11 +794,13 @@ namespace Grabcut
             //pictureBox2.Image = sift_feature.ToBitmap();
 
             //hiên ảnh sift
-            if (showimg == true)
-            {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift gray", sift_feature);
-            }
+            //if (showimg == true)
+            //{
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            //    //CvInvoke.Imshow("image sift gray", sift_feature);
+            pictureBox3.Image = sift_feature.ToBitmap();
+            //}
+
 
             MKeyPoint[] keyPoints = vkPoint.ToArray();
 
@@ -887,8 +895,9 @@ namespace Grabcut
             //hiên ảnh sift
             if (showimg == true)
             {
-                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                CvInvoke.Imshow("image sift green", sift_feature);
+                //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                //CvInvoke.Imshow("image sift green", sift_feature);
+
             }
 
             double[] b = tinhHistogramGreen(a);
@@ -1339,6 +1348,113 @@ namespace Grabcut
                 }
             }
             return gimg;
+        }
+
+        private void openTXTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            if (opf.ShowDialog() == DialogResult.OK)
+            {
+                inputtxt = opf.FileName;
+                Cleartxt();
+                readtxtfile();
+            }
+        }
+        private void readtxtfile()
+        {
+
+            FileStream fs = new FileStream(inputtxt, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs);
+            sr.BaseStream.Seek(0, SeekOrigin.Begin);
+            string[] lines = File.ReadLines(inputtxt).ToArray();
+            //string[] arrListStr;
+            int sodong = 0;
+            int tongsodong = lines.Count();
+            int lay70 = tongsodong * 70 / 100;
+            int dem70 = 0, dem30 = 0;
+            foreach (var line in lines)
+            {
+                sodong++;
+
+                if (sodong <= lay70)
+                {
+                    Get_Train.Add(line);
+                    dem70++;
+                    label7.Text = dem70.ToString();
+                }
+                else
+                {
+                    Get_Test.Add(line);
+                    dem30++;
+                    label9.Text = dem30.ToString();
+                }
+                label5.Text = tongsodong.ToString();
+            }
+        }
+
+        private void saveTestTrainToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = SaveFile70();
+            using (TextWriter writer = File.CreateText(path))
+            {
+                foreach (string item in Get_Train)
+                {
+                    writer.WriteLine(item);
+                }
+            }
+            string path1 = SaveFile30();
+            using (TextWriter writer = File.CreateText(path1))
+            {
+                foreach (string item in /*listBox3.Items*/ Get_Test)
+                {
+                    writer.WriteLine(item);
+                }
+            }
+        }
+        private string SaveFile70()
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Text|*.txt";
+            save.FilterIndex = 1;
+            string nolabel = comboBox_Label.SelectedValue.ToString();
+            //tên file dựa theo label
+            string nolabel1 = nolabel + "-training";
+            save.FileName = nolabel1;
+
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                string path = save.FileName;
+                return path;
+            }
+
+            return null;
+        }
+        private string SaveFile30()
+        {
+            SaveFileDialog save = new SaveFileDialog();
+            save.Filter = "Text|*.txt";
+            save.FilterIndex = 1;
+
+            //tên file dựa theo label
+            string nolabel = comboBox_Label.SelectedValue.ToString();
+            //tên file dựa theo label
+            string nolabel1 = nolabel + "-testing";
+            save.FileName = nolabel1;
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                string path = save.FileName;
+                return path;
+            }
+
+            return null;
+        }
+        private void Cleartxt()
+        {
+            Get_Test.Clear();
+            Get_Train.Clear();
+            label5.Text = "0";
+            label7.Text = "0";
+            label9.Text = "0";
         }
     }
 }
