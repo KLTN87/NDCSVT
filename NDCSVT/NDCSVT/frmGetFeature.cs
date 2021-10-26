@@ -1516,7 +1516,7 @@ namespace Grabcut
             int tongsodong = lines.Count();
             int lay70 = tongsodong * 70 / 100;
             int dem70 = 0, dem30 = 0;
-            if (lay70 % 2 == 0) {
+            if (lay70%2 == 0) {
                 foreach (var line in lines)
                 {
                     sodong++;
