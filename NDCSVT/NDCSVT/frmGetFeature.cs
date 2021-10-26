@@ -1,14 +1,20 @@
-﻿using Emgu.CV;
-using Emgu.CV.Features2D;
-using Emgu.CV.Structure;
-using Emgu.CV.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using Emgu.CV.Util;
+using Emgu.CV.Features2D;
+using Emgu.CV.XFeatures2D;
+using Emgu.CV.CvEnum;
+using System.IO;
 
 namespace Grabcut
 {
@@ -18,7 +24,6 @@ namespace Grabcut
         {
             InitializeComponent();
         }
-
         private string[] inputFiles;
         private string inputtxt;
         private bool showimg = false;
@@ -26,6 +31,7 @@ namespace Grabcut
         private List<String> vectorList = new List<string>();
         private List<String> Get_Train = new List<string>();
         private List<String> Get_Test = new List<string>();
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clearInput();
@@ -33,7 +39,7 @@ namespace Grabcut
             opf.Title = "Select multiply images";
             opf.Multiselect = true;
             opf.Filter = "Image Files | *.jpg; *.jpeg; *.png";
-
+            
             if (opf.ShowDialog() == DialogResult.OK)
             {
                 inputFiles = opf.FileNames;
@@ -44,10 +50,9 @@ namespace Grabcut
                 }
                 groupBox4.Text = "List file (" + inputFiles.Length + ")";
                 pictureBox1.Image = imgInput.ToBitmap(128, 128);
-
             }
-        }
 
+        }
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             clearInput();
@@ -55,12 +60,14 @@ namespace Grabcut
             {
                 DialogResult result = fbd.ShowDialog();
 
+
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     inputFiles = Directory.GetFiles(fbd.SelectedPath);
                     foreach (string filename in inputFiles)
                     {
                         this.listBox1.Items.Add(filename.ToString());
+
                     }
                     groupBox4.Text = "List file (" + inputFiles.Length + ")";
 
@@ -74,12 +81,17 @@ namespace Grabcut
             }
         }
 
+
+
+
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string nolabel = comboBox_Label.SelectedValue.ToString();
             string path = SaveFile();
             using (TextWriter writer = File.CreateText(path))
             {
+
                 foreach (string vt in vectorList)
                 {
                     writer.WriteLine("<label>" + nolabel + "</label>");
@@ -88,9 +100,30 @@ namespace Grabcut
             }
         }
 
+        //private void saveFileString1()
+        //{
+        //    SaveFileDialog sfd = new SaveFileDialog();
+        //    sfd.Filter = "Text File|*.txt";
+        //    sfd.FileName = "DacTrung";
+        //    sfd.Title = "Save Text File";
+        //    if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        string path = sfd.FileName;
+        //        using (var fs = File.Create(path))
+        //        using (StreamWriter bw = new StreamWriter(fs))
+        //        {
+        //            bw.Write(richTextBox1.Text);
+        //            bw.Close();
+        //        }
+        //    }
+
+        //}
+
+
         private void mergeTextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MergeFile(OpenFile(), SaveFile());
+
         }
 
         private List<string> OpenFile()
@@ -107,6 +140,8 @@ namespace Grabcut
             }
             return path;
         }
+
+
 
         private string SaveFile()
         {
@@ -140,13 +175,24 @@ namespace Grabcut
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
         private void Form2_Load(object sender, EventArgs e)
         {
             initComBoBox();
         }
-
         private void initComBoBox()
         {
+
             comboBox_Label.DisplayMember = "Text";
             comboBox_Label.ValueMember = "Value";
 
@@ -213,10 +259,13 @@ namespace Grabcut
                 new { Text = "59 (X)", Value = "59" },
                 new { Text = "60 (Y)", Value = "60" },
                 new { Text = "61 (Z)", Value = "61" }
+
             };
 
             comboBox_Label.DataSource = itemsLabel;
             comboBox_Label.SelectedIndex = 0;
+
+
 
             comboBox_HOG.DisplayMember = "Text";
             comboBox_HOG.ValueMember = "Value";
@@ -234,6 +283,7 @@ namespace Grabcut
             comboBox_HOG.DataSource = itemsHOG;
             comboBox_HOG.SelectedIndex = 3;
 
+
             comboBox_SIFT.DisplayMember = "Text";
             comboBox_SIFT.ValueMember = "Value";
 
@@ -250,11 +300,15 @@ namespace Grabcut
             comboBox_SIFT.SelectedIndex = 2;
 
             radioButton1.Checked = true;
+
+
         }
+
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             showimg = false;
+
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -262,26 +316,36 @@ namespace Grabcut
             showimg = true;
         }
 
+
+
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (inputFiles.Length < 1)
             {
+
                 MessageBox.Show("Lỗi!, vui lòng nhập file hình ảnh");
+
             }
             else
             {
+
                 int noLabel = int.Parse(comboBox_Label.SelectedValue.ToString());
                 int noHOGvalue = int.Parse(comboBox_HOG.SelectedValue.ToString());
                 int noSIFTchoose = int.Parse(comboBox_SIFT.SelectedValue.ToString());
 
                 string thoigianthucthi = startProcessing(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
 
+                Console.Beep(1000, 100);
                 MessageBox.Show("Hoàn thành " + thoigianthucthi + "  ms");
+
             }
+
+
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             clearInput();
         }
 
@@ -296,7 +360,9 @@ namespace Grabcut
             richTextBox1.Clear();
             vectorList.Clear();
             groupBox4.Text = "List file";
+
         }
+
 
         private string startProcessing(string[] dsFile, int label, int HOGvalue, int SIFTchoose)
         {
@@ -306,7 +372,9 @@ namespace Grabcut
 
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            Parallel.ForEach(inputFiles, filename =>
+
+
+            foreach (string filename in inputFiles)
             {
                 Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
 
@@ -330,16 +398,20 @@ namespace Grabcut
 
                 List<String> stringdactrung = convertDoubleArrayToStringArray(chuanhoadactrung);
 
+
                 string textDT = string.Join(" ", stringdactrung);
+
+
+
 
                 //string textDT = string.Join(" ", featureSIFT);// test sift
 
                 vectorList.Add(textDT);
 
-                //pcbValue++;
+                pcbValue++;
+                progressBar1.Value = pcbValue;
 
-                //progressBar1.Value = pcbValue;
-            });
+            }
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -347,7 +419,13 @@ namespace Grabcut
             print10FirstVector(vectorList, label);
 
             return elapsedMs.ToString();
+
         }
+
+
+
+
+
 
         private void print10FirstVector(List<String> dsVectoc, int label)
         {
@@ -355,19 +433,27 @@ namespace Grabcut
             richTextBox1.Clear();
             foreach (String vec in vectorList)
             {
+
                 dem++;
                 richTextBox1.Text = richTextBox1.Text + "\n<label>" + label + "</label>\n<vector>" + vec + "</vector>";
 
                 if (dem >= 10)
                     break;
             }
+
         }
+
+
+
+
 
         private double normalizeDouble(double value, double min, double max)
         {
+
             //value = Math.Round(value, 15);
             //min = Math.Round(min, 15);
             //max = Math.Round(max, 15);
+
 
             if (value == 0 && min == 0 && max == 0)
             {
@@ -380,19 +466,19 @@ namespace Grabcut
 
             return temp;
         }
-
         private double[] normalizeDoubleArray(double[] arr)
         {
             double[] terms = new double[arr.Length];
 
             for (int runs = 0; runs < arr.Length; runs++)
             {
+
                 terms[runs] = normalizeDouble(arr[runs], arr.Min(), arr.Max());
             }
 
+
             return terms;
         }
-
         private double[] concatDoubleArray(double[] first, double[] second)
         {
             double[] result = first.Concat(second).ToArray();
@@ -405,6 +491,7 @@ namespace Grabcut
             List<String> temp = new List<String>();
             foreach (double ichuan in arr)
             {
+
                 String tempsdt;
                 if (ichuan == 0 || ichuan == 1)
                 {
@@ -419,6 +506,7 @@ namespace Grabcut
             return temp;
         }
 
+
         //Hàm của Grabcut
         private Image<Bgr, Byte> GrabcutImg(Image<Bgr, Byte> img)
         {
@@ -426,6 +514,8 @@ namespace Grabcut
             {
                 //Image<Gray, byte> tempimg = new Image<Gray, byte>(img.Size);
                 //img = new Image<Bgr, Byte>(tempimg.Size);
+
+
 
                 //test//
                 Matrix<double> bg = new Matrix<double>(1, 65);
@@ -448,6 +538,7 @@ namespace Grabcut
                         }
                         else
                         {
+
                         }
                     }
                 }
@@ -471,21 +562,27 @@ namespace Grabcut
 
                 img = cropNoUseBlackAreaImg(img);
 
+
+
+
                 //if (showimg == true)
                 //{
                 //    //hiện ảnh sau khi grabcut
-                //    //CvInvoke.Imshow("image grabcut", img);
+                //    CvInvoke.Imshow("image grabcut", img);
                 pictureBox2.Image = img.ToBitmap();
-                //}
-                //CvInvoke.WaitKey(0);
 
+                //}
                 return img;
             }
+
             catch
             {
+
             }
             return img;
+
         }
+
 
         public Image<Bgr, Byte> cropNoUseBlackAreaImg(Image<Bgr, Byte> img)
         {
@@ -496,6 +593,8 @@ namespace Grabcut
             return temp;
         }
 
+
+
         public List<int> getNonBlackArea(Image<Bgr, Byte> imgBlack)
         {
             Bitmap img = imgBlack.AsBitmap();
@@ -505,6 +604,7 @@ namespace Grabcut
             List<int> listMinMaxXY = new List<int>();
             try
             {
+
                 for (int y = 0; y < img.Height; y++) //tìm tọa độ không phải là màu đen - màu nền sau grabcut
                 {
                     for (int x = 0; x < img.Width; x++)
@@ -524,29 +624,35 @@ namespace Grabcut
                 listMinMaxXY.Add(listY.Max());
                 //listMinMaxXY(minx, maxx, miny, maxy);
             }
+
             catch
             {
                 listMinMaxXY.Add(0);
                 listMinMaxXY.Add(0);
                 listMinMaxXY.Add(0);
                 listMinMaxXY.Add(0);
+
             }
             return listMinMaxXY;
+
         }
+
+
+
+
 
         //hàmm của HOG
         private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
         {
             return im.Resize(w, h, Emgu.CV.CvEnum.Inter.Linear);
         }
-
         private double[] GetVector(Image<Bgr, Byte> im, HOGDescriptor hog)
         {
             float[] temp = hog.Compute(im, Size.Empty, Size.Empty, null);
             double[] doubleArray = Array.ConvertAll(temp, x => (double)x);
             return doubleArray;
-        }
 
+        }
         private double[] getHOGFeature(Image<Bgr, Byte> im, int numberValues)
         {
             HOGDescriptor des;
@@ -555,36 +661,48 @@ namespace Grabcut
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
                 new Size(16, 16), new Size(64, 64), 9);
+
             }
             else if (numberValues == 144)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
                      new Size(16, 16), new Size(32, 32), 9);
+
             }
+
             else if (numberValues == 576)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
                      new Size(16, 16), new Size(8, 32), 9);
+
             }
+
             else if (numberValues == 2304)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(32, 32),
                     new Size(32, 32), new Size(8, 8), 9);
+
             }
+
             else if (numberValues == 5184)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(64, 64),
                     new Size(32, 32), new Size(8, 8), 9);
+
             }
             else if (numberValues == 9360)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(32, 64),
                     new Size(8, 16), new Size(8, 16), 9);
+
             }
+
+
             else if (numberValues == 18720)
             {
                 des = new HOGDescriptor(new Size(128, 128), new Size(32, 64),
                     new Size(8, 16), new Size(8, 8), 9);
+
             }
             else
             {
@@ -598,7 +716,18 @@ namespace Grabcut
             return hog;
         }
 
+
+
+
+
+
+
+
+
+
+
         //hàm của SIFT
+
 
         private double[] getSIFTFeature(Image<Bgr, Byte> im, int numberChoose)
         {
@@ -634,8 +763,8 @@ namespace Grabcut
             }
 
             return sift;
-        }
 
+        }
         private double[] getSIFTNewton(Image<Bgr, Byte> im)
         {
             Bitmap a = convertNewton(IResize(im, 128, 128).ToBitmap());
@@ -648,6 +777,7 @@ namespace Grabcut
             Mat sift_feature = new Mat();
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
+
 
             MKeyPoint[] keyPoints = vkPoint.ToArray();
 
@@ -666,6 +796,7 @@ namespace Grabcut
 
             //foreach (keypoint item in keypointsList)
             //{
+
             //    if (item == null)
             //    {
             //        temp = "Khong co gia tri";
@@ -687,6 +818,7 @@ namespace Grabcut
                     mx = b[i];
                 }
 
+
                 if (b[i] < mn)
                 {
                     mn = b[i];
@@ -694,18 +826,24 @@ namespace Grabcut
             }
             double[] c = balanceHistogram(b, mx, mn);
 
+
             double[] tempArr = c.Take(6).ToArray();
+
 
             //hiên ảnh sift
             if (showimg == true)
             {
                 Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift newton", sift_feature);
+
             }
 
-            return tempArr;
-        }
 
+
+            return tempArr;
+
+
+        }
         private double[] getSIFTMpeg7(Image<Bgr, Byte> im)
         {
             Bitmap a = convertMpeg7(IResize(im, 128, 128).ToBitmap());
@@ -718,6 +856,7 @@ namespace Grabcut
             Mat sift_feature = new Mat();
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
+
 
             MKeyPoint[] keyPoints = vkPoint.ToArray();
 
@@ -736,6 +875,7 @@ namespace Grabcut
 
             //foreach (keypoint item in keypointsList)
             //{
+
             //    if (item == null)
             //    {
             //        richTextBox1.Text = "Khong co gia tri";
@@ -744,6 +884,7 @@ namespace Grabcut
             //        temp = temp + item.X + " " + item.Y + " ";
             //}
             //richTextBox1.Text = temp;
+
 
             double[] b = tinhHistogramMpeg7(a, keyPoints, maxx, maxy);
             double mx = b[0];
@@ -756,6 +897,7 @@ namespace Grabcut
                     mx = b[i];
                 }
 
+
                 if (b[i] < mn)
                 {
                     mn = b[i];
@@ -763,6 +905,7 @@ namespace Grabcut
             }
             double[] c = balanceHistogram(b, mx, mn);
             double[] tempArr = c.Take(25).ToArray();
+
 
             ////pictureBox2.Image = sift_feature.ToBitmap();
             //CvInvoke.Imshow("image", sift_feature);
@@ -773,13 +916,19 @@ namespace Grabcut
             {
                 Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift mpeg7", sift_feature);
+
             }
 
-            return tempArr;
-        }
 
+
+            return tempArr;
+
+
+
+        }
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
+
             Bitmap a = convertGrayScale(im.ToBitmap());
 
             Mat src1 = a.ToMat();
@@ -815,6 +964,7 @@ namespace Grabcut
                 maxy++;
             }
 
+
             double[] b = tinhHistogramGray(a, keyPoints, maxx, maxy);
 
             double mx = b[0];
@@ -827,6 +977,7 @@ namespace Grabcut
                     mx = b[i];
                 }
 
+
                 if (b[i] < mn)
                 {
                     mn = b[i];
@@ -835,9 +986,9 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             return c;
         }
-
         private double[] getSIFTRed(Image<Bgr, Byte> im)
         {
+
             Bitmap a = convertRed(im.ToBitmap());
 
             Mat src1 = a.ToMat();
@@ -851,12 +1002,15 @@ namespace Grabcut
 
             //pictureBox2.Image = sift_feature.ToBitmap();
 
+
             //hiên ảnh sift
             if (showimg == true)
             {
                 Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift red", sift_feature);
+
             }
+
 
             double[] b = tinhHistogramRed(a);
 
@@ -870,6 +1024,7 @@ namespace Grabcut
                     mx = b[i];
                 }
 
+
                 if (b[i] < mn)
                 {
                     mn = b[i];
@@ -878,9 +1033,9 @@ namespace Grabcut
             double[] c = balanceHistogram(b, mx, mn);
             return c;
         }
-
         private double[] getSIFTGreen(Image<Bgr, Byte> im)
         {
+
             Bitmap a = convertGreen(im.ToBitmap());
 
             Mat src1 = a.ToMat();
@@ -892,13 +1047,15 @@ namespace Grabcut
 
             VectorOfKeyPoint vkPoint = new VectorOfKeyPoint(mKeyPoints);
 
+
             //hiên ảnh sift
             if (showimg == true)
             {
-                //Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
-                //CvInvoke.Imshow("image sift green", sift_feature);
+                Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+                CvInvoke.Imshow("image sift green", sift_feature);
 
             }
+
 
             double[] b = tinhHistogramGreen(a);
 
@@ -912,6 +1069,7 @@ namespace Grabcut
                     mx = b[i];
                 }
 
+
                 if (b[i] < mn)
                 {
                     mn = b[i];
@@ -921,9 +1079,9 @@ namespace Grabcut
 
             return c;
         }
-
         private double[] getSIFTBlue(Image<Bgr, Byte> im)
         {
+
             Bitmap a = convertBlue(im.ToBitmap());
 
             Mat src1 = a.ToMat();
@@ -940,7 +1098,11 @@ namespace Grabcut
             {
                 Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
                 CvInvoke.Imshow("image sift blue", sift_feature);
+
             }
+
+
+
 
             double[] b = tinhHistogramBlue(a);
 
@@ -953,6 +1115,7 @@ namespace Grabcut
                 {
                     mx = b[i];
                 }
+
 
                 if (b[i] < mn)
                 {
@@ -982,7 +1145,6 @@ namespace Grabcut
             }
             return gimg;
         }
-
         public Bitmap convertRed(Bitmap img)
         {
             Bitmap gimg = new Bitmap(img.Width, img.Height);
@@ -1001,9 +1163,9 @@ namespace Grabcut
             }
             return gimg;
         }
-
         public Bitmap convertGreen(Bitmap img)
         {
+
             Bitmap gimg = new Bitmap(img.Width, img.Height);
             for (int x = 0; x < gimg.Width; x++)
             {
@@ -1020,7 +1182,6 @@ namespace Grabcut
             }
             return gimg;
         }
-
         public Bitmap convertBlue(Bitmap img)
         {
             Bitmap gimg = new Bitmap(img.Width, img.Height);
@@ -1039,7 +1200,6 @@ namespace Grabcut
             }
             return gimg;
         }
-
         public double[] balanceHistogram(double[] b, double max, double min)
         {
             double[] histogram = new double[256];
@@ -1049,7 +1209,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public double[] tinhHistogramGray(Bitmap anhxam, MKeyPoint[] key, double maxx, double maxy)
         {
             double[] histogram = new double[256];
@@ -1057,18 +1216,13 @@ namespace Grabcut
             {
                 for (int j = 0; j < maxy; j++)
                 {
-                    //if (i == j)
-                    //{
-                    Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
-                    byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
-
-                    histogram[gray]++;
-                    //}
+                        Color color = anhxam.GetPixel((int)key[i].Point.X, (int)key[j].Point.Y);
+                        byte gray = color.R; // chuyen sang anh don sac thi xam = r = g = b
+                        histogram[gray]++;
                 }
             }
             return histogram;
         }
-
         public double[] tinhHistogramRed(Bitmap anhxam)
         {
             double[] histogram = new double[256];
@@ -1083,7 +1237,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public double[] tinhHistogramGreen(Bitmap anhxam)
         {
             double[] histogram = new double[256];
@@ -1098,7 +1251,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public double[] tinhHistogramBlue(Bitmap anhxam)
         {
             double[] histogram = new double[256];
@@ -1113,7 +1265,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public int getIndexNewtonColor(Color c)
         {
             int idx = 0;
@@ -1148,7 +1299,6 @@ namespace Grabcut
             }
             return idx;
         }
-
         public double[] tinhHistogramNewton(Bitmap bmp, MKeyPoint[] key, double maxx, double maxy)
         {
             double[] histogram = new double[6];
@@ -1168,7 +1318,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public int getIndexMPEG7Color(Color c)
         {
             int idx = 0;
@@ -1216,7 +1365,6 @@ namespace Grabcut
             }
             return idx;
         }
-
         public double[] tinhHistogramMpeg7(Bitmap bmp, MKeyPoint[] key, double maxx, double maxy)
         {
             double[] histogram = new double[25];
@@ -1236,7 +1384,6 @@ namespace Grabcut
             }
             return histogram;
         }
-
         public Color getNewtonColor(Color c)
         {
             int idx = 0;
@@ -1271,7 +1418,6 @@ namespace Grabcut
             Color newColor = Color.FromArgb(255, color[idx, 0], color[idx, 1], color[idx, 2]);
             return newColor;
         }
-
         public Color getMPEG7Color(Color c)
         {
             int idx = 0;
@@ -1321,7 +1467,6 @@ namespace Grabcut
             Color newColor = Color.FromArgb(255, color[idx, 0], color[idx, 1], color[idx, 2]);
             return newColor;
         }
-
         public Bitmap convertNewton(Bitmap img)
         {
             Bitmap gimg = new Bitmap(img.Width, img.Height);
@@ -1335,7 +1480,6 @@ namespace Grabcut
             }
             return gimg;
         }
-
         public Bitmap convertMpeg7(Bitmap img)
         {
             Bitmap gimg = new Bitmap(img.Width, img.Height);
@@ -1457,4 +1601,7 @@ namespace Grabcut
             label9.Text = "0";
         }
     }
+
+
+
 }
