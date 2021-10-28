@@ -66,11 +66,14 @@ namespace Grabcut
                     inputFiles = Directory.GetFiles(fbd.SelectedPath);
                     foreach (string filename in inputFiles)
                     {
-                        this.listBox1.Items.Add(filename.ToString());
 
+                        this.listBox1.Items.Add(filename.ToString());
+                        imgInput = new Image<Bgr, byte>(filename);
+                        
                     }
                     groupBox4.Text = "List file (" + inputFiles.Length + ")";
-
+                    pictureBox1.Image = imgInput.ToBitmap(128, 128);
+                    //pictureBox1.Image = imgInput.ToBitmap(128, 128);
                     try //nếu tên folder là số thì gán label bằng tên folder
                     {
                         string foldername = Path.GetFileName(fbd.SelectedPath);
@@ -377,11 +380,10 @@ namespace Grabcut
             foreach (string filename in inputFiles)
             {
                 Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
-
+                
                 int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
 
                 tempimg = IResize(tempimg, 128, 128);
-
                 var imggrabcut = GrabcutImg(tempimg);
                 var tempimg2 = IResize(imggrabcut, 128, 128);
 
@@ -829,9 +831,9 @@ namespace Grabcut
             ////hiên ảnh sift
             //if (showimg == true)
             //{
-            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //    CvInvoke.Imshow("image sift newton", sift_feature);
-
+            pictureBox3.Image = sift_feature.ToBitmap();
             //}
 
 
@@ -910,9 +912,9 @@ namespace Grabcut
             ////hiên ảnh sift
             //if (showimg == true)
             //{
-            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //    CvInvoke.Imshow("image sift mpeg7", sift_feature);
-
+            pictureBox3.Image = sift_feature.ToBitmap();
             //}
 
 
@@ -1002,9 +1004,9 @@ namespace Grabcut
             ////hiên ảnh sift
             //if (showimg == true)
             //{
-            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
             //    CvInvoke.Imshow("image sift red", sift_feature);
-
+            pictureBox3.Image = sift_feature.ToBitmap();
             //}
 
 
@@ -1047,8 +1049,9 @@ namespace Grabcut
             ////hiên ảnh sift
             //if (showimg == true)
             //{
-            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(0, 255, 0), Features2DToolbox.KeypointDrawType.Default);
             //    CvInvoke.Imshow("image sift green", sift_feature);
+            pictureBox3.Image = sift_feature.ToBitmap();
 
             //}
 
@@ -1092,9 +1095,9 @@ namespace Grabcut
             ////hiên ảnh sift
             //if (showimg == true)
             //{
-            //    Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
+            Features2DToolbox.DrawKeypoints(src1, vkPoint, sift_feature, new Bgr(255, 0, 0), Features2DToolbox.KeypointDrawType.Default);
             //    CvInvoke.Imshow("image sift blue", sift_feature);
-
+            pictureBox3.Image = sift_feature.ToBitmap();
             //}
 
 
