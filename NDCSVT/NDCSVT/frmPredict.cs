@@ -55,13 +55,9 @@ namespace Grabcut
             Image<Bgr, byte> tempimg = new Image<Bgr, byte>(inputfile);
 
             var chuanhoadactrung = getFeaturesFormImage(tempimg);
-
-
-
             List<String> stringdactrung = convertDoubleArrayToStringArray(chuanhoadactrung);
 
             string textDT = string.Join(" ", stringdactrung);
-
             vectorList.Add(textDT);
             print10FirstVector(vectorList);
 
@@ -72,9 +68,8 @@ namespace Grabcut
 
         }
 
-        private double[] getFeaturesFormImage(Image<Bgr, byte> tempimg)
+        public double[] getFeaturesFormImage(Image<Bgr, byte> tempimg)
         {
-
 
             int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
             tempimg = IResize(tempimg, 128, 128);
@@ -191,7 +186,7 @@ namespace Grabcut
                 CvInvoke.GrabCut(img, mask, rect,
                    bg, fg, 5, Emgu.CV.CvEnum.GrabcutInitType.InitWithRect);
                 Image<Gray, byte> mask2 = new Image<Gray, byte>(img.Size);
-                ////here i set the only white pixels (foreground object ) to 1 and 0 for else
+
                 for (int x = 0; x < mask.Cols; x++)
                 {
                     for (int y = 0; y < mask.Rows; y++)
@@ -275,7 +270,6 @@ namespace Grabcut
                 listMinMaxXY.Add(listX.Max());
                 listMinMaxXY.Add(listY.Min());
                 listMinMaxXY.Add(listY.Max());
-                //listMinMaxXY(minx, maxx, miny, maxy);
             }
 
             catch
@@ -354,7 +348,6 @@ namespace Grabcut
             }
             else
             {
-                //des = new HOGDescriptor();
                 des = new HOGDescriptor(new Size(128, 128), new Size(128, 128),
                 new Size(16, 16), new Size(64, 64), 9); //36
             }
@@ -497,7 +490,6 @@ namespace Grabcut
 
             using (var graph = new TFGraph())
             {
-
 
                 try
                 {
