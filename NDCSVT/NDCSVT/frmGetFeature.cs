@@ -1627,6 +1627,12 @@ namespace Grabcut
             return null;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmMenu frm = new frmMenu();
+            frm.Show();
+            this.Hide();
+        }
     }
 
 

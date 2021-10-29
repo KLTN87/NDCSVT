@@ -51,6 +51,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -163,42 +164,42 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openToolStripMenuItem.Text = "Open Image";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // openFolderToolStripMenuItem
             // 
             this.openFolderToolStripMenuItem.Name = "openFolderToolStripMenuItem";
-            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFolderToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openFolderToolStripMenuItem.Text = "Open Folder";
             this.openFolderToolStripMenuItem.Click += new System.EventHandler(this.openFolderToolStripMenuItem_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // mergeTextToolStripMenuItem
             // 
             this.mergeTextToolStripMenuItem.Name = "mergeTextToolStripMenuItem";
-            this.mergeTextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mergeTextToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.mergeTextToolStripMenuItem.Text = "Merge Text";
             this.mergeTextToolStripMenuItem.Click += new System.EventHandler(this.mergeTextToolStripMenuItem_Click);
             // 
             // openTXTToolStripMenuItem
             // 
             this.openTXTToolStripMenuItem.Name = "openTXTToolStripMenuItem";
-            this.openTXTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openTXTToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.openTXTToolStripMenuItem.Text = "Split Text";
             this.openTXTToolStripMenuItem.Click += new System.EventHandler(this.openTXTToolStripMenuItem_Click);
             // 
@@ -262,11 +263,22 @@
             this.pictureBox3.TabIndex = 28;
             this.pictureBox3.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(18, 420);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 32);
+            this.button1.TabIndex = 29;
+            this.button1.Text = "Back";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmGetFeature
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1001, 464);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -317,5 +329,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.ToolStripMenuItem openTXTToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
