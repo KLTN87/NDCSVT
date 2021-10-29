@@ -71,6 +71,12 @@
     <Compile Include="frmPredict.Designer.cs">
       <DependentUpon>frmPredict.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSeparate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSeparate.Designer.cs">
+      <DependentUpon>frmSeparate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTrain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPredict.resx">
       <DependentUpon>frmPredict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSeparate.resx">
+      <DependentUpon>frmSeparate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTrain.resx">
       <DependentUpon>frmTrain.cs</DependentUpon>
