@@ -90,7 +90,7 @@ namespace Grabcut
             try
             {
                 OpenFileDialog opf = new OpenFileDialog();
-                opf.Title = "Select multiply images";
+                opf.Title = "Select images";
                 opf.Filter = "Image Files | *.jpg; *.jpeg; *.png";
 
                 if (opf.ShowDialog() == DialogResult.OK)
