@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Keras;
-using Keras.Layers;
+﻿using Keras.Layers;
 using Keras.Models;
 using Keras.Optimizers;
 using Keras.Utils;
-
 using Numpy;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Grabcut
 {
     public partial class frmTrain : Form
     {
-        string pathTextTraining = null;
-        string pathTextTesting = null;
-
+        private string pathTextTraining = null;
+        private string pathTextTesting = null;
 
         public frmTrain()
         {
@@ -48,7 +39,6 @@ namespace Grabcut
             }
         }
 
-
         private void openTextTestingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -66,15 +56,11 @@ namespace Grabcut
             }
         }
 
-
-
-
         public static void BuildAndTrain(NDarray train_x, NDarray train_y, NDarray test_x, NDarray test_y, int nb_classes)
         {
             //Model to hold the neural network architecture which in this case is WaveNet
             var model = new Sequential();
             // Starts with embedding layer
-
 
             model.Add(new Flatten());
             model.Add(new Dense(256));
@@ -85,7 +71,6 @@ namespace Grabcut
             // Compile with Adam optimizer
             model.Compile(optimizer: new Adam(), loss: "categorical_crossentropy", metrics: new string[] { "accuracy" });
 
-
             model.Fit(train_x, train_y, batch_size: 128, epochs: 20, verbose: 1);
 
             //Score the model for performance
@@ -94,29 +79,17 @@ namespace Grabcut
             Console.WriteLine("Test loss:" + score[0]);
             Console.WriteLine("Test accuracy:" + score[1]);
 
-
-
-
             // Save the final trained model which we are going to use for prediction
             model.Save("last_epoch.h5");
             model.Save("save");
 
             model.Summary();
 
-
             MessageBox.Show("Test loss: " + score[0] + "\nTest accuracy: " + score[1]);
-
-
-
         }
-
-
-
-
 
         public int[] txt2ArrLabel(string path)
         {
-
             List<int> tempArrIint = new List<int>();
             foreach (string line in System.IO.File.ReadLines(path))
             {
@@ -151,7 +124,6 @@ namespace Grabcut
             return tempArr;
         }
 
-
         //vì không thể convert mảng răng cưa sang numpy, nên phải chuyển sang mảng 2 chiều
         public static T[,] CreateRectangularArray<T>(IList<T[]> arrays)
         {
@@ -183,26 +155,18 @@ namespace Grabcut
             if (pathSaveFile == null)
             {
                 return;
-
             }
-
 
             try
             {
                 File.Copy(pathModelTrained, pathSaveFile);
                 MessageBox.Show("Saved");
             }
-
             catch
             {
                 MessageBox.Show("Error! No Model Trained");
-
-
             }
-
-
         }
-
 
         private string SaveModelFile()
         {
@@ -233,7 +197,6 @@ namespace Grabcut
                 return;
             }
 
-
             var labelTrain = txt2ArrLabel(pathTextTraining);
             var vectorTrain = txt2ArrVector(pathTextTraining);
             var trainY = np.array(labelTrain);
@@ -246,21 +209,16 @@ namespace Grabcut
             var testX = np.array(vectorTest);
             var testY_one_hot = Util.ToCategorical(testY);
 
-
             int nb_classes = int.Parse(textBox1.Text);
-
 
             try
             {
                 BuildAndTrain(trainX, trainY_one_hot, testX, testY_one_hot, nb_classes);
-
             }
             catch
             {
-
                 MessageBox.Show("Something error!");
             }
-
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

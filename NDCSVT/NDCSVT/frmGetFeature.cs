@@ -26,7 +26,7 @@ namespace Grabcut
         }
         private string[] inputFiles;
         private string inputtxt;
-        //private bool showimg = false;
+        private bool onParallel = false;
         Image<Bgr, byte> imgInput;
         private List<String> vectorList = new List<string>();
         private List<String> Get_Train = new List<string>();
@@ -191,6 +191,7 @@ namespace Grabcut
         private void Form2_Load(object sender, EventArgs e)
         {
             initComBoBox();
+            radioButton2.Checked = true;
         }
         private void initComBoBox()
         {
@@ -323,7 +324,20 @@ namespace Grabcut
                 int noHOGvalue = int.Parse(comboBox_HOG.SelectedValue.ToString());
                 int noSIFTchoose = int.Parse(comboBox_SIFT.SelectedValue.ToString());
 
-                string thoigianthucthi = startProcessing(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
+                string thoigianthucthi = null;
+                    
+                if(onParallel==false)
+                {
+                    thoigianthucthi = startProcessing(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
+                }
+                else
+                {
+                    thoigianthucthi = startProcessingParallel(inputFiles, noLabel, noHOGvalue, noSIFTchoose);
+                }
+
+
+
+
                 Console.Beep(500, 100);
                 MessageBox.Show("Hoàn thành " + thoigianthucthi + "  ms");
 
@@ -357,19 +371,15 @@ namespace Grabcut
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
 
-
             foreach (string filename in inputFiles)
             {
                 Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
 
-                var chuanhoadactrung = getFeaturesFormImage(tempimg);
-
+                var chuanhoadactrung = getFeaturesFormImage(tempimg, SIFTchoose, HOGvalue);
 
                 List<String> stringdactrung = convertDoubleArrayToStringArray(chuanhoadactrung);
 
-
                 string textDT = string.Join(" ", stringdactrung);
-
                 vectorList.Add(textDT);
 
                 pcbValue++;
@@ -379,25 +389,48 @@ namespace Grabcut
 
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-
             print10FirstVector(vectorList, label);
 
             return elapsedMs.ToString();
         }
 
 
+        private string startProcessingParallel(string[] dsFile, int label, int HOGvalue, int SIFTchoose)
+        {
 
-        public  double[] getFeaturesFormImage(Image<Bgr, byte> tempimg)
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            Parallel.ForEach(inputFiles, filename =>
+            {
+                Image<Bgr, byte> tempimg = new Image<Bgr, byte>(filename);
+                var chuanhoadactrung = getFeaturesFormImage(tempimg, SIFTchoose, HOGvalue);
+                List<String> stringdactrung = convertDoubleArrayToStringArray(chuanhoadactrung);
+                string textDT = string.Join(" ", stringdactrung);
+                vectorList.Add(textDT);
+            });
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            print10FirstVector(vectorList, label);
+            return elapsedMs.ToString();
+        }
+
+
+
+
+
+
+        public  double[] getFeaturesFormImage(Image<Bgr, byte> tempimg, int SIFTchoose, int HOGvalue)
         {
 
             int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
             tempimg = IResize(tempimg, 128, 128);
 
-            var imggrabcut = GrabcutImg(tempimg);
+            var imggrabcut = GrabcutImg1(tempimg);
             var tempimg2 = IResize(imggrabcut, 128, 128);
 
-            var featureSIFT = getSIFTGray(tempimg2);
-            var featureHOG = getHOGFeature(tempimg2, 2304);
+            var featureSIFT = getSIFTFeature(tempimg2, SIFTchoose);
+            var featureHOG = getHOGFeature(tempimg2, HOGvalue);
             var gopdactrung = concatDoubleArray(featureSIFT, featureHOG);
             var chuanhoadactrung = normalizeDoubleArray(gopdactrung);
             return chuanhoadactrung;
@@ -534,6 +567,24 @@ namespace Grabcut
             return img;
 
         }
+
+
+
+        public Image<Bgr, Byte> GrabcutImg1(Image<Bgr, Byte> img)
+        {
+            img = GrabcutImg(img);
+            pictureBox2.Image = img.ToBitmap();
+
+            return img;
+
+        }
+
+
+
+
+
+
+
 
 
         public static Image<Bgr, Byte> cropNoUseBlackAreaImg(Image<Bgr, Byte> img)
@@ -1519,6 +1570,16 @@ namespace Grabcut
             var form2 = new frmMenu();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            onParallel = false;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            onParallel = true;
         }
     }
 
