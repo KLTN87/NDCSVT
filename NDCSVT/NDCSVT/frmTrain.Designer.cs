@@ -137,6 +137,7 @@ namespace Grabcut
             this.Controls.Add(this.textBox1);
             this.Name = "frmTrain";
             this.Text = "frmTrain";
+            this.Load += new System.EventHandler(this.frmTrain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

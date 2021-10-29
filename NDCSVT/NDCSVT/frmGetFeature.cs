@@ -424,7 +424,7 @@ namespace Grabcut
 
 
 
-        private double normalizeDouble(double value, double min, double max)
+        public static  double normalizeDouble(double value, double min, double max)
         {
             if (value == 0 && min == 0 && max == 0)
             {
@@ -433,7 +433,7 @@ namespace Grabcut
             double temp = (value - min) / (max - min);
             return temp;
         }
-        private double[] normalizeDoubleArray(double[] arr)
+        public static double[] normalizeDoubleArray(double[] arr)
         {
             double[] terms = new double[arr.Length];
 
@@ -445,14 +445,14 @@ namespace Grabcut
 
             return terms;
         }
-        private double[] concatDoubleArray(double[] first, double[] second)
+        public static double[] concatDoubleArray(double[] first, double[] second)
         {
             double[] result = first.Concat(second).ToArray();
 
             return result;
         }
 
-        private List<String> convertDoubleArrayToStringArray(double[] arr) //double sang string khi số quá nhỏ dính ký tự thập phân E
+        public static List<String> convertDoubleArrayToStringArray(double[] arr) //double sang string khi số quá nhỏ dính ký tự thập phân E
         {
             List<String> temp = new List<String>();
             foreach (double ichuan in arr)
@@ -474,7 +474,7 @@ namespace Grabcut
 
 
         //Hàm của Grabcut
-        private Image<Bgr, Byte> GrabcutImg(Image<Bgr, Byte> img)
+        public static Image<Bgr, Byte> GrabcutImg(Image<Bgr, Byte> img)
         {
             try
             {
@@ -536,7 +536,7 @@ namespace Grabcut
         }
 
 
-        public Image<Bgr, Byte> cropNoUseBlackAreaImg(Image<Bgr, Byte> img)
+        public static Image<Bgr, Byte> cropNoUseBlackAreaImg(Image<Bgr, Byte> img)
         {
             List<int> listNonBlack = new List<int>();
             listNonBlack = getNonBlackArea(img);
@@ -547,7 +547,7 @@ namespace Grabcut
 
 
 
-        public List<int> getNonBlackArea(Image<Bgr, Byte> imgBlack)
+        public static List<int> getNonBlackArea(Image<Bgr, Byte> imgBlack)
         {
             Bitmap img = imgBlack.AsBitmap();
             Color pixelColor;
@@ -594,18 +594,18 @@ namespace Grabcut
 
 
         //hàmm của HOG
-        private Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
+         public static Image<Bgr, Byte> IResize(Image<Bgr, Byte> im, int w, int h)
         {
             return im.Resize(w, h, Emgu.CV.CvEnum.Inter.Linear);
         }
-        private double[] GetVector(Image<Bgr, Byte> im, HOGDescriptor hog)
+        public static double[] GetVector(Image<Bgr, Byte> im, HOGDescriptor hog)
         {
             float[] temp = hog.Compute(im, Size.Empty, Size.Empty, null);
             double[] doubleArray = Array.ConvertAll(temp, x => (double)x);
             return doubleArray;
 
         }
-        private double[] getHOGFeature(Image<Bgr, Byte> im, int numberValues)
+        public static double[] getHOGFeature(Image<Bgr, Byte> im, int numberValues)
         {
             HOGDescriptor des;
 
@@ -1011,7 +1011,7 @@ namespace Grabcut
             return c;
         }
 
-        public Bitmap convertGrayScale(Bitmap img)
+        public static Bitmap convertGrayScale(Bitmap img)
         {
             Bitmap gimg = new Bitmap(img.Width, img.Height);
             for (int x = 0; x < gimg.Width; x++)
@@ -1085,7 +1085,7 @@ namespace Grabcut
             }
             return gimg;
         }
-        public double[] balanceHistogram(double[] b, double max, double min)
+        public static double[] balanceHistogram(double[] b, double max, double min)
         {
             double[] histogram = new double[256];
             for (int i = 0; i < b.Length; i++)
@@ -1094,7 +1094,7 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramGray(Bitmap anhxam, MKeyPoint[] key, double maxx, double maxy)
+        public static double[] tinhHistogramGray(Bitmap anhxam, MKeyPoint[] key, double maxx, double maxy)
         {
             double[] histogram = new double[256];
             for (int i = 0; i < maxx; i++)
@@ -1108,7 +1108,7 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramRed(Bitmap anhxam)
+        public static double[] tinhHistogramRed(Bitmap anhxam)
         {
             double[] histogram = new double[256];
             for (int i = 0; i < anhxam.Width; i++)
@@ -1122,7 +1122,7 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramGreen(Bitmap anhxam)
+        public static double[] tinhHistogramGreen(Bitmap anhxam)
         {
             double[] histogram = new double[256];
             for (int i = 0; i < anhxam.Width; i++)
@@ -1136,7 +1136,7 @@ namespace Grabcut
             }
             return histogram;
         }
-        public double[] tinhHistogramBlue(Bitmap anhxam)
+        public static double[] tinhHistogramBlue(Bitmap anhxam)
         {
             double[] histogram = new double[256];
             for (int i = 0; i < anhxam.Width; i++)
@@ -1515,9 +1515,10 @@ namespace Grabcut
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmMenu frm = new frmMenu();
-            frm.Show();
             this.Hide();
+            var form2 = new frmMenu();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
     }
 

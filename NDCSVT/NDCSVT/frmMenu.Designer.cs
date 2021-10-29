@@ -86,6 +86,7 @@ namespace Grabcut
             this.Controls.Add(this.button1);
             this.Name = "frmMenu";
             this.Text = "frmMenu";
+            this.Load += new System.EventHandler(this.frmMenu_Load);
             this.ResumeLayout(false);
 
         }

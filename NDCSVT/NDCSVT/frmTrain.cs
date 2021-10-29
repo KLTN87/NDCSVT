@@ -273,9 +273,14 @@ namespace Grabcut
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmMenu frm = new frmMenu();
-            frm.Show();
             this.Hide();
+            var form2 = new frmMenu();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
+        }
+
+        private void frmTrain_Load(object sender, EventArgs e)
+        {
         }
     }
 }

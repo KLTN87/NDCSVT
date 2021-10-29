@@ -17,6 +17,8 @@ namespace Grabcut
             InitializeComponent();
         }
 
+
+
         private void button4_Click(object sender, EventArgs e)
         {
             DialogResult rs = MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -28,23 +30,30 @@ namespace Grabcut
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frmGetFeature  frm = new frmGetFeature();
-            frm.Show();
             this.Hide();
+            var form2 = new frmGetFeature();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            frmTrain frm = new frmTrain();
-            frm.Show();
             this.Hide();
+            var form2 = new frmTrain();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            frmPredict frm = new frmPredict();
-            frm.Show();
             this.Hide();
+            var form2 = new frmPredict();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
+        }
+
+        private void frmMenu_Load(object sender, EventArgs e)
+        {
         }
     }
 }
