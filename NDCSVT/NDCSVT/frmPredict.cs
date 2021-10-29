@@ -129,8 +129,6 @@ namespace Grabcut
 
 
 
-        //hàmm của HOG
-
 
         private double[] getSIFTGray(Image<Bgr, Byte> im)
         {
@@ -286,7 +284,7 @@ namespace Grabcut
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
-        private string getStringPredict(int num)
+        public static string getStringPredict(int num)
         {
             if (num < 10) //0-9
             {

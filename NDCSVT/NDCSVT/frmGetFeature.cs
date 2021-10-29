@@ -21,12 +21,10 @@ namespace Grabcut
         }
 
         private string[] inputFiles;
-        private string inputtxt;
+
         private bool onParallel = false;
         private Image<Bgr, byte> imgInput;
         private List<String> vectorList = new List<string>();
-        private List<String> Get_Train = new List<string>();
-        private List<String> Get_Test = new List<string>();
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -110,7 +108,7 @@ namespace Grabcut
             MergeFile(OpenFile(), SaveFile());
         }
 
-        private List<string> OpenFile()
+        public static List<string> OpenFile()
         {
             List<string> path = new List<string>();
             OpenFileDialog open = new OpenFileDialog();
@@ -143,7 +141,9 @@ namespace Grabcut
             return null;
         }
 
-        private void MergeFile(List<string> listFile, string pathOutput)
+
+
+        public static void MergeFile(List<string> listFile, string pathOutput)
         {
             using (var output = File.Create(pathOutput))
             {
@@ -1299,134 +1299,9 @@ namespace Grabcut
 
         private void openTXTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog opf = new OpenFileDialog();
-            if (opf.ShowDialog() == DialogResult.OK)
-            {
-                inputtxt = opf.FileName;
-                try //nếu tên txt là số thì gán label bằng tên txt
-                {
-                    string filename1 = Path.GetFileNameWithoutExtension(inputtxt);
-                    comboBox_Label.SelectedIndex = int.Parse(filename1);
-                }
-                catch { }
 
-                Get_Test.Clear();
-                Get_Train.Clear();
-
-                readtxtfile();
-
-                string path = SaveFile70();
-                using (TextWriter writer = File.CreateText(path))
-                {
-                    foreach (string item in Get_Train)
-                    {
-                        writer.WriteLine(item);
-                    }
-                }
-                string path1 = SaveFile30();
-                using (TextWriter writer = File.CreateText(path1))
-                {
-                    foreach (string item in Get_Test)
-                    {
-                        writer.WriteLine(item);
-                    }
-                }
-            }
         }
 
-        private void readtxtfile()
-        {
-            FileStream fs = new FileStream(inputtxt, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs);
-            sr.BaseStream.Seek(0, SeekOrigin.Begin);
-            string[] lines = File.ReadLines(inputtxt).ToArray();
-            //string[] arrListStr;
-            int sodong = 0;
-            int tongsodong = lines.Count();
-            int lay70 = tongsodong * 70 / 100;
-            int dem70 = 0, dem30 = 0;
-            if (lay70 % 2 == 0)
-            {
-                foreach (var line in lines)
-                {
-                    sodong++;
-
-                    if (sodong <= lay70)
-                    {
-                        Get_Train.Add(line);
-                        dem70++;
-                        //label7.Text = dem70.ToString();
-                    }
-                    else
-                    {
-                        Get_Test.Add(line);
-                        dem30++;
-                        //label9.Text = dem30.ToString();
-                    }
-                    //label5.Text = tongsodong.ToString();
-                }
-            }
-            else
-            {
-                foreach (var line in lines)
-                {
-                    sodong++;
-
-                    if (sodong < lay70)
-                    {
-                        Get_Train.Add(line);
-                        dem70++;
-                        //label7.Text = dem70.ToString();
-                    }
-                    else
-                    {
-                        Get_Test.Add(line);
-                        dem30++;
-                        //label9.Text = dem30.ToString();
-                    }
-                    //label5.Text = tongsodong.ToString();
-                }
-            }
-        }
-
-        private string SaveFile70()
-        {
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Text|*.txt";
-            save.FilterIndex = 1;
-            string nolabel = comboBox_Label.SelectedValue.ToString();
-            //tên file dựa theo label
-            string nolabel1 = nolabel + "-training";
-            save.FileName = nolabel1;
-
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                string path = save.FileName;
-                return path;
-            }
-
-            return null;
-        }
-
-        private string SaveFile30()
-        {
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "Text|*.txt";
-            save.FilterIndex = 1;
-
-            //tên file dựa theo label
-            string nolabel = comboBox_Label.SelectedValue.ToString();
-            //tên file dựa theo label
-            string nolabel1 = nolabel + "-testing";
-            save.FileName = nolabel1;
-            if (save.ShowDialog() == DialogResult.OK)
-            {
-                string path = save.FileName;
-                return path;
-            }
-
-            return null;
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {

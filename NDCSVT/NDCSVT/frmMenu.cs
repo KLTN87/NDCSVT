@@ -31,7 +31,7 @@ namespace Grabcut
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form2 = new frmGetFeature();
+            var form2 = new frmPredict();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
@@ -46,14 +46,25 @@ namespace Grabcut
 
         private void button3_Click(object sender, EventArgs e)
         {
+
+
+
             this.Hide();
-            var form2 = new frmPredict();
+            var form2 = new frmGetFeature();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form2 = new frmDataset();
+            form2.Closed += (s, args) => this.Close();
+            form2.Show();
         }
     }
 }

@@ -22,39 +22,6 @@ namespace Grabcut
             textBox1.Text = "10";
         }
 
-        private void openTextToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    pathTextTraining = dialog.FileName;
-                    MessageBox.Show("Text Training loaded");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void openTextTestingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                OpenFileDialog dialog = new OpenFileDialog();
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    pathTextTesting = dialog.FileName;
-                    MessageBox.Show("Text Testing loaded");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         public static void BuildAndTrain(NDarray train_x, NDarray train_y, NDarray test_x, NDarray test_y, int nb_classes)
         {
@@ -88,7 +55,52 @@ namespace Grabcut
             MessageBox.Show("Test loss: " + score[0] + "\nTest accuracy: " + score[1]);
         }
 
-        public int[] txt2ArrLabel(string path)
+
+
+
+        private void openTextToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Text file | *.txt";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    pathTextTraining = dialog.FileName;
+                    MessageBox.Show("Text Training loaded");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void openTextTestingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Text file | *.txt";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    pathTextTesting = dialog.FileName;
+                    MessageBox.Show("Text Testing loaded");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+
+
+
+        public static int[] txt2ArrLabel(string path)
         {
             List<int> tempArrIint = new List<int>();
             foreach (string line in System.IO.File.ReadLines(path))
@@ -240,5 +252,7 @@ namespace Grabcut
         private void frmTrain_Load(object sender, EventArgs e)
         {
         }
+
+
     }
 }

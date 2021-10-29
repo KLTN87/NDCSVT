@@ -65,14 +65,14 @@ namespace Grabcut
             // openTextToolStripMenuItem1
             // 
             this.openTextToolStripMenuItem1.Name = "openTextToolStripMenuItem1";
-            this.openTextToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.openTextToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openTextToolStripMenuItem1.Text = "Open Text Training";
             this.openTextToolStripMenuItem1.Click += new System.EventHandler(this.openTextToolStripMenuItem1_Click);
             // 
             // openTextTestingToolStripMenuItem
             // 
             this.openTextTestingToolStripMenuItem.Name = "openTextTestingToolStripMenuItem";
-            this.openTextTestingToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openTextTestingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openTextTestingToolStripMenuItem.Text = "Open Text Testing";
             this.openTextTestingToolStripMenuItem.Click += new System.EventHandler(this.openTextTestingToolStripMenuItem_Click);
             // 
@@ -88,14 +88,14 @@ namespace Grabcut
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
