@@ -61,7 +61,8 @@ namespace Grabcut
 
             string textDT = string.Join(" ", stringdactrung);
             vectorList.Add(textDT);
-            print10FirstVector(vectorList);
+            richTextBox1.Text = textDT;
+            //print10FirstVector(vectorList);
 
             int kq = getPredictFormModel(chuanhoadactrung);
             string stringKq = getStringPredict(kq);
@@ -77,6 +78,7 @@ namespace Grabcut
             int tempimgwsize = int.Parse(tempimg.Size.Width.ToString());
             tempimg = frmGetFeature.IResize(tempimg, 128, 128);
             var imggrabcut = frmGetFeature.GrabcutImg(tempimg);
+            pictureBox1.Image = imggrabcut.ToBitmap();
             var tempimg2 = frmGetFeature.IResize(imggrabcut, 128, 128);
             var featureSIFT = getSIFTGray(tempimg2);
             var featureHOG = frmGetFeature.getHOGFeature(tempimg2, 2304);
@@ -300,7 +302,6 @@ namespace Grabcut
             string kq = arr[num];
             return kq;
         }
-
 
     }
 }
