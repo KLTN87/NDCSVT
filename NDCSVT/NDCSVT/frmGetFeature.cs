@@ -89,6 +89,11 @@ namespace Grabcut
             }
         }
 
+        internal static List<string> convertDoubleArrayToStringArray(object chuanhoadactrung)
+        {
+            throw new NotImplementedException();
+        }
+
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string nolabel = comboBox_Label.SelectedValue.ToString();
