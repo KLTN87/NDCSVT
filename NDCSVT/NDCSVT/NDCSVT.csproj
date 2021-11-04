@@ -140,12 +140,18 @@
     <PackageReference Include="Emgu.CV.UI">
       <Version>4.5.3.4721</Version>
     </PackageReference>
+    <PackageReference Include="FontAwesome.Sharp">
+      <Version>5.15.3</Version>
+    </PackageReference>
     <PackageReference Include="Keras.NET">
       <Version>3.8.5</Version>
     </PackageReference>
     <PackageReference Include="TensorFlowSharp">
       <Version>1.15.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-curly-arrow-240.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

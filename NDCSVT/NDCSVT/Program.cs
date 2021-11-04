@@ -13,7 +13,7 @@ namespace Grabcut
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmTesst());
+            Application.Run(new frmMenu());
         }
     }
 }
