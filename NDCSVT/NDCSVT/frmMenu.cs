@@ -39,7 +39,7 @@ namespace Grabcut
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            var form2 = new frmPredictCNN();
+            var form2 = new frmTrain();
             form2.Closed += (s, args) => this.Close();
             form2.Show();
         }
