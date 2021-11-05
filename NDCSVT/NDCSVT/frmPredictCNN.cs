@@ -69,6 +69,7 @@ namespace Grabcut
 
                 pictureBox1.Image = imgInput.ToBitmap();
 
+
             }
             catch
             {
@@ -93,33 +94,18 @@ namespace Grabcut
 
 
             int kq = startPredict(pathModel, imgInput);
-            string stringKq = getStringPredict(kq);
+            string stringKq = frmPredict.getStringPredict(kq);
             richTextBox_KQ.Text = stringKq;
 
-        }
-
-        public static string getStringPredict(int num)
-        {
-            if (num < 10) //0-9
-            {
-                return num.ToString();
-            }
-
-            string[] arr = { "0","1", "2", "3", "4", "5", "6", "7", "8", "9",
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-                "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-                "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-
-            string kq = arr[num];
-            return kq;
         }
 
 
         public int startPredict(string pathModel, Image<Bgr, byte> imgInput)
         {
             Net model = DnnInvoke.ReadNetFromTensorflow(pathModel);
-            Bitmap bm = imgInput.ToBitmap();
+            var img1 = frmGetFeature.IResize(imgInput, 64, 64);
+            img1 = frmGetFeature.GrabcutImg(imgInput);
+            Bitmap bm = img1.ToBitmap();
 
             var img = bm.ToImage<Gray, byte>()
                 .SmoothGaussian(3)
