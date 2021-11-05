@@ -15,7 +15,6 @@ using Emgu.CV.Features2D;
 using Emgu.CV.XFeatures2D;
 using Emgu.CV.CvEnum;
 using System.IO;
-using Numpy;
 using TensorFlow;
 using System.Collections;
 
@@ -26,7 +25,7 @@ namespace Grabcut
         string inputfile;
         Image<Bgr, byte> imgInput;
         List<String> vectorList = new List<string>();
-        string pathModel = @"../../../pb/save.pb";
+        string pathModel = @"../../../pb/DNN-dave-digit.pb";
 
 
         public frmPredict()
