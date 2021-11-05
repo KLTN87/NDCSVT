@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace Grabcut
 {
@@ -17,7 +18,6 @@ namespace Grabcut
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private Form currentChildForm;
-
         public frmMenu()
         {
             InitializeComponent();
@@ -30,7 +30,6 @@ namespace Grabcut
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
         }
-
         private struct RGBColors
         {
             public static Color color1 = Color.FromArgb(172, 126, 241);
@@ -38,7 +37,6 @@ namespace Grabcut
             public static Color color3 = Color.FromArgb(253, 138, 114);
             public static Color color4 = Color.FromArgb(155, 136, 179);
         }
-
         private void ActivateButton(object senderBtn, Color color)
         {
             if (senderBtn != null)
@@ -69,85 +67,39 @@ namespace Grabcut
             {
                 currentBtn.BackColor = Color.FromArgb(31, 30, 78);
                 currentBtn.ForeColor = Color.White;
-                currentBtn.TextAlign = ContentAlignment.MiddleLeft;
+                currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 currentBtn.IconColor = Color.White;
                 currentBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
             }
-        }
-
-
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form2 = new frmPredict();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form2 = new frmTrain();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form2 = new frmGetFeature();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-        }
-
-        private void frmMenu_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form2 = new frmDataset();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-        }
-
-        private void iconButton4_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color4);
-        }
-
-        private void iconButton1_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color1);
-            OpenChildForm(new frmPredict());
-        }
-
-        private void iconButton2_Click(object sender, EventArgs e)
-        {
-            ActivateButton(sender, RGBColors.color2);
         }
         private void reset()
         {
             DisableButton();
             leftBorderBtn.Visible = false;
         }
+        private void frmMenu_Load(object sender, EventArgs e)
+        {
+        }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color3);
+            DialogResult rs = MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (rs == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void pictureBoxLogo_Click(object sender, EventArgs e)
         {
             reset();
             iconCurrentChildForm.IconChar = IconChar.Home;
             iconCurrentChildForm.IconColor = Color.MediumPurple;
             labelHome.Text = "Home";
         }
-
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
@@ -174,17 +126,24 @@ namespace Grabcut
             panelDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            
+
         }
 
-        private void iconButton3_Click(object sender, EventArgs e)
+        private void btnDNN_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color1);
+            OpenChildForm(new frmPredict());
+        }
+
+        private void btnCNN_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color2);
+            OpenChildForm(new frmPredictCNN());
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
-            DialogResult rs = MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (rs == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
         }
     }
 }
