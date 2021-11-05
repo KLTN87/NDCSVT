@@ -30,8 +30,8 @@ namespace Grabcut
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnExit = new FontAwesome.Sharp.IconButton();
             this.btnAbout = new FontAwesome.Sharp.IconButton();
+            this.btnFeatures = new FontAwesome.Sharp.IconButton();
             this.btnCNN = new FontAwesome.Sharp.IconButton();
             this.btnDNN = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
@@ -41,6 +41,7 @@ namespace Grabcut
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panelDesktop = new System.Windows.Forms.Panel();
+            this.btnExit = new FontAwesome.Sharp.IconButton();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
@@ -53,6 +54,7 @@ namespace Grabcut
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(30)))), ((int)(((byte)(108)))));
             this.panelMenu.Controls.Add(this.btnExit);
             this.panelMenu.Controls.Add(this.btnAbout);
+            this.panelMenu.Controls.Add(this.btnFeatures);
             this.panelMenu.Controls.Add(this.btnCNN);
             this.panelMenu.Controls.Add(this.btnDNN);
             this.panelMenu.Controls.Add(this.panelLogo);
@@ -61,25 +63,6 @@ namespace Grabcut
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(214, 634);
             this.panelMenu.TabIndex = 5;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.IconChar = FontAwesome.Sharp.IconChar.MehBlank;
-            this.btnExit.IconColor = System.Drawing.Color.White;
-            this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(0, 396);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(214, 75);
-            this.btnExit.TabIndex = 4;
-            this.btnExit.Text = "Exit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnAbout
             // 
@@ -92,13 +75,32 @@ namespace Grabcut
             this.btnAbout.IconColor = System.Drawing.Color.White;
             this.btnAbout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAbout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAbout.Location = new System.Drawing.Point(0, 321);
+            this.btnAbout.Location = new System.Drawing.Point(0, 396);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(214, 75);
-            this.btnAbout.TabIndex = 3;
+            this.btnAbout.TabIndex = 4;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
+            // btnFeatures
+            // 
+            this.btnFeatures.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnFeatures.FlatAppearance.BorderSize = 0;
+            this.btnFeatures.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFeatures.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFeatures.ForeColor = System.Drawing.Color.White;
+            this.btnFeatures.IconChar = FontAwesome.Sharp.IconChar.Ruler;
+            this.btnFeatures.IconColor = System.Drawing.Color.White;
+            this.btnFeatures.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnFeatures.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFeatures.Location = new System.Drawing.Point(0, 321);
+            this.btnFeatures.Name = "btnFeatures";
+            this.btnFeatures.Size = new System.Drawing.Size(214, 75);
+            this.btnFeatures.TabIndex = 3;
+            this.btnFeatures.Text = "Features";
+            this.btnFeatures.UseVisualStyleBackColor = true;
+            this.btnFeatures.Click += new System.EventHandler(this.btnFeatures_Click);
             // 
             // btnCNN
             // 
@@ -214,6 +216,25 @@ namespace Grabcut
             this.panelDesktop.Size = new System.Drawing.Size(925, 531);
             this.panelDesktop.TabIndex = 8;
             // 
+            // btnExit
+            // 
+            this.btnExit.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.IconChar = FontAwesome.Sharp.IconChar.MehBlank;
+            this.btnExit.IconColor = System.Drawing.Color.White;
+            this.btnExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExit.Location = new System.Drawing.Point(0, 471);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(214, 75);
+            this.btnExit.TabIndex = 5;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // frmMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,13 +263,14 @@ namespace Grabcut
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private FontAwesome.Sharp.IconButton btnDNN;
-        private FontAwesome.Sharp.IconButton btnExit;
         private FontAwesome.Sharp.IconButton btnAbout;
+        private FontAwesome.Sharp.IconButton btnFeatures;
         private FontAwesome.Sharp.IconButton btnCNN;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label labelHome;
         private FontAwesome.Sharp.IconPictureBox iconCurrentChildForm;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panelDesktop;
+        private FontAwesome.Sharp.IconButton btnExit;
     }
 }

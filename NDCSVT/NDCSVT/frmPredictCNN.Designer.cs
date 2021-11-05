@@ -38,7 +38,6 @@ namespace Grabcut
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTextBox_KQ = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -88,60 +87,58 @@ namespace Grabcut
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 19);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 16);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(360, 201);
+            this.pictureBox1.Size = new System.Drawing.Size(359, 327);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.richTextBox_KQ);
-            this.groupBox2.Location = new System.Drawing.Point(422, 5);
+            this.groupBox2.Location = new System.Drawing.Point(397, 57);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(346, 231);
+            this.groupBox2.Size = new System.Drawing.Size(396, 343);
             this.groupBox2.TabIndex = 34;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Output";
             // 
             // richTextBox_KQ
             // 
+            this.richTextBox_KQ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox_KQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox_KQ.Location = new System.Drawing.Point(6, 19);
+            this.richTextBox_KQ.Location = new System.Drawing.Point(3, 16);
             this.richTextBox_KQ.Name = "richTextBox_KQ";
-            this.richTextBox_KQ.Size = new System.Drawing.Size(324, 201);
+            this.richTextBox_KQ.Size = new System.Drawing.Size(390, 324);
             this.richTextBox_KQ.TabIndex = 0;
             this.richTextBox_KQ.Text = "";
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Location = new System.Drawing.Point(26, 5);
+            this.groupBox1.Location = new System.Drawing.Point(26, 54);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(390, 231);
+            this.groupBox1.Size = new System.Drawing.Size(365, 346);
             this.groupBox1.TabIndex = 33;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(26, 276);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 32);
-            this.button1.TabIndex = 35;
-            this.button1.Text = "Back";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // frmPredictCNN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 338);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(855, 412);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
             this.Name = "frmPredictCNN";
             this.Text = "frmPredictCNN";
             this.Load += new System.EventHandler(this.frmPredictCNN_Load);
@@ -166,6 +163,5 @@ namespace Grabcut
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RichTextBox richTextBox_KQ;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
     }
 }

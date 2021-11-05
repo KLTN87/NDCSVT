@@ -35,7 +35,8 @@ namespace Grabcut
             public static Color color1 = Color.FromArgb(172, 126, 241);
             public static Color color2 = Color.FromArgb(249, 168, 176);
             public static Color color3 = Color.FromArgb(253, 138, 114);
-            public static Color color4 = Color.FromArgb(155, 136, 179);
+            public static Color color4 = Color.FromArgb(193, 124, 170);
+            public static Color color5 = Color.FromArgb(155, 136, 179);
         }
         private void ActivateButton(object senderBtn, Color color)
         {
@@ -85,7 +86,7 @@ namespace Grabcut
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color3);
+            ActivateButton(sender, RGBColors.color5);
             DialogResult rs = MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (rs == DialogResult.Yes)
             {
@@ -144,6 +145,13 @@ namespace Grabcut
         private void btnAbout_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new frmAbout());
+        }
+
+        private void btnFeatures_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColors.color4);
+            OpenChildForm(new frmGetFeature());
         }
     }
 }

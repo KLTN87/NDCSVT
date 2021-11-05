@@ -277,14 +277,6 @@ namespace Grabcut
         private void frmPredict_Load(object sender, EventArgs e)
         {
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            var form2 = new frmMenu();
-            form2.Closed += (s, args) => this.Close();
-            form2.Show();
-        }
         public static string getStringPredict(int num)
         {
             if (num < 10) //0-9

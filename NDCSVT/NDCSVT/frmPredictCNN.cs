@@ -152,5 +152,10 @@ namespace Grabcut
             richTextBox_KQ.SelectAll();
             richTextBox_KQ.SelectionAlignment = HorizontalAlignment.Center;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
