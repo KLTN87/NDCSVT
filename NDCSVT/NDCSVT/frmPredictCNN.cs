@@ -103,14 +103,15 @@ namespace Grabcut
         public int startPredict(string pathModel, Image<Bgr, byte> imgInput)
         {
             Net model = DnnInvoke.ReadNetFromTensorflow(pathModel);
-            var img1 = frmGetFeature.IResize(imgInput, 64, 64);
-            img1 = frmGetFeature.GrabcutImg(imgInput);
-            Bitmap bm = img1.ToBitmap();
+            var img1 = frmGetFeature.IResize(imgInput, 128, 128);
+            img1 = frmGetFeature.GrabcutImg(img1);
 
-            var img = bm.ToImage<Gray, byte>()
-                .SmoothGaussian(3)
-                .Resize(28, 28, Emgu.CV.CvEnum.Inter.Cubic)
-                .Mul(1 / 255.0f);
+            pictureBox1.Image = img1.ToBitmap();
+            var img = img1.Convert<Gray, Byte>()
+                                .SmoothGaussian(3)
+                                .Resize(28, 28, Emgu.CV.CvEnum.Inter.Cubic)
+                                .Mul(1 / 255.0f);
+
 
             var input = DnnInvoke.BlobFromImage(img);
             model.SetInput(input);
