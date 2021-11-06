@@ -22,7 +22,7 @@ namespace Grabcut
         {
             InitializeComponent();
             leftBorderBtn = new Panel();
-            leftBorderBtn.Size = new Size(7, 65);
+            leftBorderBtn.Size = new Size(7, 75);
             panelMenu.Controls.Add(leftBorderBtn);
 
             this.Text = string.Empty;
