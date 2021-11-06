@@ -104,7 +104,7 @@ namespace Grabcut
         {
             Net model = DnnInvoke.ReadNetFromTensorflow(pathModel);
             var img1 = frmGetFeature.IResize(imgInput, 128, 128);
-            img1 = frmGetFeature.GrabcutImg(img1);
+            img1 = GrabcutImg(img1);
 
             pictureBox1.Image = img1.ToBitmap();
             var img = img1.Convert<Gray, Byte>()
@@ -139,6 +139,62 @@ namespace Grabcut
             richTextBox_KQ.SelectAll();
             richTextBox_KQ.SelectionAlignment = HorizontalAlignment.Center;
         }
+
+        public static Image<Bgr, Byte> GrabcutImg(Image<Bgr, Byte> img)
+        {
+            try
+            {
+                Matrix<double> bg = new Matrix<double>(1, 65);
+                bg.SetZero();
+                Matrix<double> fg = new Matrix<double>(1, 65);
+                fg.SetZero();
+                Image<Gray, byte> mask = new Image<Gray, byte>(img.Size);
+                Rectangle rect = new Rectangle(img.Cols / 10, 2, (int)((double)img.Width / (0.75)), img.Height);
+                CvInvoke.GrabCut(img, mask, rect,
+                   bg, fg, 5, Emgu.CV.CvEnum.GrabcutInitType.InitWithRect);
+                Image<Gray, byte> mask2 = new Image<Gray, byte>(img.Size);
+
+                for (int x = 0; x < mask.Cols; x++)
+                {
+                    for (int y = 0; y < mask.Rows; y++)
+                    {
+                        if (mask2[y, x].Intensity > new Gray(200).Intensity)
+                        {
+                            mask[y, x] = new Gray(1);
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+                CvInvoke.GrabCut(img, mask, rect,
+                     bg, fg, 5, Emgu.CV.CvEnum.GrabcutInitType.InitWithMask);
+                for (int x = 0; x < mask.Cols; x++)
+                {
+                    for (int y = 0; y < mask.Rows; y++)
+                    {
+                        if (mask[y, x].Intensity == new Gray(1).Intensity || mask[y, x].Intensity == new Gray(3).Intensity)
+                        {
+                            mask[y, x] = new Gray(1);
+                        }
+                        else
+                        {
+                            mask[y, x] = new Gray(0);
+                        }
+                    }
+                }
+                img = img.Mul(mask.Convert<Bgr, byte>());
+
+                return img;
+            }
+            catch
+            {
+            }
+            return img;
+        }
+
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
