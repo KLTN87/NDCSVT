@@ -64,10 +64,10 @@ namespace Grabcut
                 {
                     inputfile = opf.FileName;
                     imgInput = new Image<Bgr, byte>(inputfile);
+                    pictureBox1.Image = imgInput.ToBitmap();
                 }
 
 
-                pictureBox1.Image = imgInput.ToBitmap();
 
 
             }
