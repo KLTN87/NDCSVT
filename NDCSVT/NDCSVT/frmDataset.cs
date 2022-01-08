@@ -40,6 +40,23 @@ namespace Grabcut
             }
         }
 
+
+        public static int[] txt2ArrLabel(string path)
+        {
+            List<int> tempArrIint = new List<int>();
+            foreach (string line in System.IO.File.ReadLines(path))
+            {
+                if (line.Contains("<label>") == true)
+                {
+                    int tempint = int.Parse(line.Trim().Replace("<label>", "").Replace("</label>", "").Trim());
+                    tempArrIint.Add(tempint);
+                }
+            }
+            return tempArrIint.ToArray();
+        }
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (pathText == null)
@@ -48,7 +65,7 @@ namespace Grabcut
             }
             else
             {
-                var labelFormText = frmTrain.txt2ArrLabel(pathText);
+                var labelFormText = txt2ArrLabel(pathText);
                 var temptLa = labelFormText.Distinct().ToArray();
                 List<String> stringLabel = new List<String>();
 
